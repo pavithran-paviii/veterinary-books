@@ -1,0 +1,137 @@
+@import "../../../index.scss";
+
+.procedure {
+  position: relative;
+  padding: 1.5rem 0;
+  overflow: hidden;
+  height: max-content;
+
+  & > .wrapper {
+    max-width: 1440px;
+    margin: 0 auto;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 5rem;
+    padding: 4% 0;
+    position: relative;
+    z-index: 1;
+    background: white;
+    border-radius: 3rem;
+    padding: 1rem;
+
+    & > h1 {
+      letter-spacing: -0.05em;
+      color: #111;
+      font-family: Inter, sans-serif;
+      margin: 5rem;
+    }
+
+    & > .stepByStep {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+      padding: 0 2.5rem;
+
+      div {
+        border: 0.5px solid $border-color;
+        width: 30%;
+        aspect-ratio: 1/0.7;
+        text-align: center;
+        padding: 2rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 1.5rem;
+        font-weight: 550;
+        border-radius: 10px;
+        color: #302f2f;
+        font-family: Inter, sans-serif;
+        cursor: pointer;
+        line-height: 1.4;
+        letter-spacing: 1px;
+        transition: all linear 0.3s;
+      }
+
+      & > .firstBox {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        aspect-ratio: unset;
+        overflow: hidden;
+        border: none;
+        padding-bottom: 0;
+
+        & > h2 {
+          color: $text-blue;
+        }
+
+        & > div {
+          &:hover {
+            background: $primary-color;
+            color: white;
+          }
+        }
+      }
+
+      & > .otherboxes {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        overflow: hidden;
+        border: none;
+        padding-top: 0;
+
+        & > div {
+          &:hover {
+            background: $primary-color;
+            color: white;
+          }
+        }
+
+        & > :nth-child(1) {
+          margin-left: auto;
+          margin-top: 2rem;
+          margin-right: 20%;
+        }
+
+        & > :nth-child(2) {
+          margin-top: 2rem;
+        }
+
+        & > :nth-child(3) {
+          margin-left: auto;
+          margin-right: 2rem;
+          margin-top: 2rem;
+        }
+      }
+    }
+
+    & > .stepByStepDocter {
+      & > .firstBox {
+        flex-direction: row-reverse;
+      }
+
+      & > .otherboxes {
+        & > :nth-child(1) {
+          margin-right: auto;
+          margin-top: 2rem;
+          margin-left: 20%;
+        }
+
+        & > :nth-child(2) {
+          margin-top: 2rem;
+        }
+
+        & > :nth-child(3) {
+          margin-right: auto;
+          margin-left: 2rem;
+        }
+      }
+    }
+  }
+}

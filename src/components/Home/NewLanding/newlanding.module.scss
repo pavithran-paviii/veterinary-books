@@ -1,0 +1,183 @@
+@import "../../../index.scss";
+
+.landing {
+  position: relative;
+  padding: 1.5rem 0;
+  overflow: hidden;
+  background: $primary-color;
+
+  & > .wrapper {
+    max-width: 1440px;
+    margin: 0 auto;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 5rem;
+    padding: 4% 0;
+    position: relative;
+    z-index: 1;
+    background: white;
+    border-radius: 3rem;
+    padding: 1rem;
+
+    & > div {
+      height: 100%;
+    }
+
+    & > .leftContainer {
+      width: 50%;
+      padding: 1.5rem 0;
+
+      & > img {
+        height: 3.5rem;
+      }
+
+      & > div {
+        display: flex;
+        flex-direction: column;
+        gap: 5vh;
+        justify-content: center;
+        margin-top: 3rem;
+        padding-left: 1rem;
+        height: calc(100% - 8rem);
+
+        & > h2 {
+          width: 75%;
+          max-width: 500px;
+        }
+
+        & > h5 {
+          font-weight: 450;
+          width: 50%;
+          line-height: 1.4;
+        }
+
+        & > .getStarted {
+          background: $light-bg-color;
+          padding: 1.2rem 2rem;
+          border-radius: 35px;
+          font-size: 0.9rem;
+          cursor: pointer;
+          color: $text-color;
+          font-weight: 600;
+          outline: none;
+          width: max-content;
+          border: none;
+          box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px,
+            rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+          display: flex;
+          align-items: center;
+          gap: 10px;
+        }
+
+        & > .procedures {
+          display: flex;
+          position: relative;
+          width: 70%;
+          max-width: 500px;
+          justify-content: space-between;
+          overflow: hidden;
+
+          &::before {
+            content: "";
+            position: absolute;
+            background: #bbb9b9;
+            height: 1.2px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100%;
+            z-index: -1;
+          }
+
+          & > div {
+            width: 3rem;
+            height: 3rem;
+            border: 1px solid #bbb9b9;
+            border-radius: 50%;
+            background: white;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            &::before {
+              content: "";
+              position: absolute;
+              width: 150%;
+              background: linear-gradient(
+                to right,
+                rgba(0, 99, 142, 1) 0%,
+                white 50%,
+                rgba(0, 99, 142, 1) 100%
+              );
+              background-size: 200% 100%;
+              animation: gradientAnimation 1s infinite;
+              height: 1.2px;
+              top: 50%;
+              left: 50%;
+              transform: translate(-50%, -50%);
+              z-index: -1;
+
+              @keyframes gradientAnimation {
+                0% {
+                  background-position: 100% 0;
+                }
+                100% {
+                  background-position: -100% 0;
+                }
+              }
+            }
+
+            & > svg {
+              font-size: 1.2rem;
+            }
+          }
+
+          & > .selectedDiv {
+            background: $primary-color;
+            color: white;
+            position: relative;
+            cursor: pointer;
+
+            & > svg {
+              font-size: 1.5rem;
+            }
+          }
+        }
+      }
+    }
+
+    & > .rightContainer {
+      width: 50%;
+      background: $primary-color;
+      border-radius: 2rem;
+      position: relative;
+
+      & > .buttonContainer {
+        position: absolute;
+        top: 0;
+        right: 0;
+        padding: 1.5rem;
+        color: white;
+        padding: 1rem;
+
+        & > .loginButton {
+          background: $primary-color;
+          color: white;
+          //   position: absolute;
+          z-index: 2;
+          white-space: nowrap;
+          right: 1rem;
+          padding: 0.9rem 1.5rem;
+          letter-spacing: 2px;
+          border-radius: 1.5rem;
+          border: 5px solid white;
+          cursor: pointer;
+          font-size: 0.9rem;
+        }
+      }
+    }
+  }
+}
