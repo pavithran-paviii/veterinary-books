@@ -6,6 +6,7 @@ import fullLogo from "../../../assets/images/Veterinary.png";
 import { FaArrowRight } from "react-icons/fa6";
 import { TiTickOutline } from "react-icons/ti";
 import { LiaDotCircleSolid } from "react-icons/lia";
+import { Link } from "react-router-dom";
 
 const NewLanding = ({ newLandingVisible, setNewLandingVisible }) => {
   const sectionRef = useRef(null);
@@ -64,7 +65,9 @@ const NewLanding = ({ newLandingVisible, setNewLandingVisible }) => {
         </div>
         <div className={classNames.rightContainer}>
           <div className={classNames.buttonContainer}>
-            <div className={classNames.loginButton}>SIGN IN</div>
+            <Link className={classNames.loginButton} to="/login">
+              SIGN IN
+            </Link>
           </div>
         </div>
       </div>
