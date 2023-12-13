@@ -8,7 +8,9 @@ const Authentication = () => {
   return (
     <section className={classNames.landing}>
       <div className={classNames.wrapper}>
-        <div className={classNames.leftContainer}></div>
+        <div className={classNames.leftContainer}>
+          <Login />
+        </div>
         <div className={classNames.rightContainer}>
           <img src={loginBackground} alt="loginBackground" />
         </div>
@@ -18,3 +20,7 @@ const Authentication = () => {
 };
 
 export default Authentication;
+
+const Login = () => {
+  return <div className={classNames.login}></div>;
+};
