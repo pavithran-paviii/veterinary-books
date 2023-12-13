@@ -34,6 +34,9 @@
     & > .leftContainer {
       width: 50%;
       padding: 1.5rem 0;
+      padding-left: 4rem;
+      display: flex;
+      justify-content: center;
     }
 
     & > .rightContainer {
@@ -48,5 +51,78 @@
         height: 100%;
       }
     }
+  }
+}
+
+.login {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  gap: 1rem;
+  max-height: 600px;
+  width: 500px;
+
+  & > .title {
+    font-size: 2rem;
+    font-weight: 500;
+  }
+
+  & > h3 {
+    font-weight: 450;
+    font-size: 1rem;
+
+    & > span {
+      text-decoration: underline;
+      font-weight: 500;
+      cursor: pointer;
+      padding-right: 5px;
+    }
+  }
+
+  & > .credentialsContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+
+    & > .flexContainer {
+      & > a {
+        text-decoration: underline;
+        cursor: pointer;
+      }
+    }
+  }
+
+  .divider {
+    position: relative;
+    font-size: 1rem;
+    color: grey;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    max-width: 500px;
+    // margin: 1.5rem 0;
+
+    & > span {
+      background: white;
+      padding: 0 10px;
+    }
+
+    &::before {
+      content: "";
+      position: absolute;
+      height: 1px;
+      background: grey;
+      z-index: -1;
+      width: 100%;
+    }
+  }
+
+  .flexContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 500px;
   }
 }

@@ -1,0 +1,91 @@
+@import "../../index.scss";
+
+.customInput {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: 500px;
+
+  & > .title {
+    font-size: 1rem;
+    font-weight: 420;
+  }
+
+  & > .inputContainer {
+    width: 100%;
+    position: relative;
+
+    & > input {
+      width: 100%;
+      border: 1px solid grey;
+      border-radius: 8px;
+      padding: 0.8rem;
+      outline: none;
+      transition: all linear 0.3s;
+
+      &:focus {
+        border: 1px solid black;
+      }
+    }
+
+    & > svg {
+      font-size: 1rem;
+      position: absolute;
+      top: 50%;
+      right: 1rem;
+      transform: translate(-50%, -50%);
+      cursor: pointer;
+      color: grey;
+      transition: all linear 0.3s;
+
+      &:hover {
+        color: $primary-color;
+      }
+    }
+  }
+}
+
+.customButton {
+  display: flex;
+  gap: 10px;
+  cursor: pointer;
+  border-radius: 10px;
+  border: 1px solid grey;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  font-size: 0.95rem;
+  font-weight: 520;
+  padding: 1rem 2rem;
+  max-width: 500px;
+
+  & > img {
+    width: 1rem;
+    height: 1rem;
+  }
+}
+
+.customCheckbox {
+  /* Add any common styling for your custom checkbox container */
+  display: flex;
+  align-items: center;
+
+  .checkboxContainer {
+    /* Styling for the checkbox container */
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-radius: 8px;
+  }
+
+  .checkboxContainer input[type="checkbox"] {
+    /* Styling for the checkbox itself */
+    margin-right: 10px;
+    background-color: red; /* Red background color */
+  }
+
+  // .checkboxContainer label {
+  //   /* Styling for the label (tick) */
+  //   color: white; /* White color for the tick */
+  // }
+}
