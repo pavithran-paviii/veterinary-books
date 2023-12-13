@@ -65,7 +65,7 @@ const NewLanding = ({ newLandingVisible, setNewLandingVisible }) => {
         </div>
         <div className={classNames.rightContainer}>
           <div className={classNames.buttonContainer}>
-            <Link className={classNames.loginButton} to="/login">
+            <Link className={classNames.loginButton} to="/signin">
               SIGN IN
             </Link>
           </div>

@@ -1,15 +1,24 @@
-import React from "react";
+import React, { useState } from "react";
 import classNames from "./custom.module.scss";
 
-// <CustomInput title="" placeHolder="" name="" stateValue="" setState=""/>
+//assets
+import { IoIosEye, IoIosEyeOff } from "react-icons/io";
 
-const CustomInput = ({ title, placeHolder, name, stateValue, setState }) => {
+const CustomInput = ({
+  title,
+  placeHolder,
+  name,
+  type,
+  stateValue,
+  setState,
+}) => {
+  const [passwordVisible, setPasswordVisible] = useState(false);
   return (
     <div className={classNames.customInput}>
       <div className={classNames.title}>{title}</div>
       <div className={classNames.inputContainer}>
         <input
-          type="text"
+          type={passwordVisible ? "text" : type ? type : "text"}
           placeholder={placeHolder}
           value={name ? stateValue[name] : stateValue}
           onChange={(event) => {
@@ -22,6 +31,13 @@ const CustomInput = ({ title, placeHolder, name, stateValue, setState }) => {
             }
           }}
         />
+        {type === "password" && passwordVisible ? (
+          <IoIosEye onClick={() => setPasswordVisible((prev) => !prev)} />
+        ) : type === "password" && !passwordVisible ? (
+          <IoIosEyeOff onClick={() => setPasswordVisible((prev) => !prev)} />
+        ) : (
+          ""
+        )}
       </div>
     </div>
   );
@@ -29,14 +45,15 @@ const CustomInput = ({ title, placeHolder, name, stateValue, setState }) => {
 
 export default CustomInput;
 
-export const CustomButton = ({ image, svg, buttonText, bg, color }) => {
+export const CustomButton = ({ image, svg, buttonText, func, bg, color }) => {
   return (
     <button
       className={classNames.customButton}
       style={{ background: bg ? bg : "", color: color ? color : "" }}
+      onClick={func}
     >
       {image && <img src={image} alt="" />}
-      {/* {svg && `<${svg}/>`} */}
+      {svg && svg}
       {buttonText}
     </button>
   );
