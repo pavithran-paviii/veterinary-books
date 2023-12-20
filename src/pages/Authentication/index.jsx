@@ -6,9 +6,13 @@ import loginBackground from "../../assets/images/Login/loginbackground.webp";
 import CustomInput, {
   CustomButton,
   CustomCheckbox,
+  CustomDropdown,
+  Toastify,
 } from "../../components/Custom";
 import { Link, useNavigate } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
+import axios from "axios";
+import { BACKENDURL } from "../../assets/data/constant";
 
 const Authentication = ({ child }) => {
   return (
@@ -29,8 +33,26 @@ export const Login = () => {
   const navigate = useNavigate();
   const [userCredentials, setUserCredentials] = useState({});
 
-  function signIn() {
-    console.log(userCredentials, "Sign In Function userCredentials");
+  function loginUser() {
+    axios
+      .post(BACKENDURL + "/user/signin", userCredentials)
+      .then((response) => {
+        if (response?.data?.status) {
+          Toastify(response?.data?.message, "error");
+          localStorage.setItem("VBemail", userCredentials?.email);
+          localStorage.setItem(
+            "VBrememberme",
+            userCredentials?.isPasswordRemember
+          );
+          // navigate("/dashboard");
+        } else {
+          Toastify(response?.data?.message, "error");
+        }
+        console.log(response, "Login user response");
+      })
+      .catch((error) => {
+        console.log(error?.message, "Login user error");
+      });
   }
 
   return (
@@ -76,7 +98,7 @@ export const Login = () => {
         buttonText="Sign In"
         bg="black"
         color="white"
-        func={signIn}
+        func={loginUser}
       />
       <div className={classNames.divider}>
         <span>OR</span>
@@ -87,7 +109,32 @@ export const Login = () => {
 };
 
 export const SignUp = () => {
+  const navigate = useNavigate();
   const [userCredentials, setUserCredentials] = useState({});
+
+  function createUser() {
+    if (userCredentials?.password !== userCredentials?.confirmPassword) {
+      Toastify("Password doesn't match!", "error");
+    }
+
+    // console.log(userCredentials, "create user credentials");
+    delete userCredentials.confirmPassword;
+    axios
+      .post(BACKENDURL + "/user/signup", userCredentials)
+      .then((response) => {
+        if (response?.data?.status) {
+          Toastify(response?.data?.message, "error");
+          localStorage.setItem("VBemail", userCredentials?.email);
+          navigate("/dashboard");
+        } else {
+          Toastify(response?.data?.message, "error");
+        }
+        console.log(response, "create user response");
+      })
+      .catch((error) => {
+        console.log(error?.message, "create user error");
+      });
+  }
 
   return (
     <div className={classNames.login}>
@@ -108,6 +155,15 @@ export const SignUp = () => {
           stateValue={userCredentials}
           setState={setUserCredentials}
         />
+        <CustomDropdown
+          dropdown={["Docter", "Client"]}
+          name="role"
+          title="Select role"
+          stateValue={userCredentials}
+          setState={setUserCredentials}
+          topTitle="true"
+          type="single"
+        />
         <CustomInput
           title="Password"
           placeHolder="enter a password"
@@ -125,7 +181,12 @@ export const SignUp = () => {
           setState={setUserCredentials}
         />
       </div>
-      <CustomButton buttonText="Sign Up" bg="black" color="white" />
+      <CustomButton
+        buttonText="Sign Up"
+        bg="black"
+        color="white"
+        func={createUser}
+      />
     </div>
   );
 };

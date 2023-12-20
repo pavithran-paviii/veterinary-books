@@ -44,7 +44,7 @@
       background: $primary-color;
       border-radius: 2rem;
       position: relative;
-      overflow: hidden;
+      overflow: scroll;
 
       & > img {
         width: 100%;
@@ -130,7 +130,7 @@
     max-width: 80%;
   }
 
-  & > :last-child {
+  & > :last-child:not(button) {
     cursor: not-allowed;
   }
 }
