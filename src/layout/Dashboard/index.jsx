@@ -5,12 +5,21 @@ import classNames from "./dashboardLayout.module.scss";
 import logoWhite from "../../assets/images/veterinarylogowhite.svg";
 import { dashboardItems } from "../../assets/data/mapItems";
 import { IoIosSettings } from "react-icons/io";
-import { Navigate } from "react-router-dom";
+import { Navigate, useLocation, useNavigate } from "react-router-dom";
 import { GlobalContext } from "../../context/globalContext";
+import { IoLogOut } from "react-icons/io5";
+import { logoutFunc } from "../../assets/functions";
 
 const DashboardLayout = ({ child }) => {
+  const navigate = useNavigate();
+  const location = useLocation();
   const { email } = useContext(GlobalContext);
-  const [selectedSidebar, setSelectedSidebar] = useState("Dashboard");
+
+  //functions
+  function logoutFunc() {
+    localStorage.clear();
+    navigate("/");
+  }
 
   if (!email) {
     return <Navigate to="/signin" />;
@@ -26,13 +35,13 @@ const DashboardLayout = ({ child }) => {
             return (
               <div
                 className={`${classNames.sidebarItem} ${
-                  eachItem?.name === selectedSidebar
+                  location?.pathname?.includes(eachItem?.name?.toLowerCase())
                     ? classNames.selectedItem
                     : ""
                 }`}
                 key={eachItem?.name + index}
                 onClick={() => {
-                  setSelectedSidebar(eachItem?.name);
+                  navigate(`/${eachItem?.name?.toLowerCase()}`);
                 }}
               >
                 {eachItem.icon}
@@ -43,6 +52,13 @@ const DashboardLayout = ({ child }) => {
           <div className={`${classNames.sidebarItem} ${classNames.otherItems}`}>
             <IoIosSettings />
             Settings
+          </div>
+          <div
+            className={`${classNames.sidebarItem} ${classNames.logoutBtn}`}
+            onClick={logoutFunc}
+          >
+            <IoLogOut />
+            Logout
           </div>
         </div>
       </div>

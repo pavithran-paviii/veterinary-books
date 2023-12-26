@@ -4,14 +4,11 @@
   display: flex;
   background: $primary-color;
 
-  & > div {
-    padding: 2rem;
-  }
-
   & > .leftSidebar {
     min-width: 200px;
     max-width: 300px;
     width: 30%;
+    padding: 2rem;
 
     & > .logo {
       display: flex;
@@ -29,6 +26,7 @@
       display: flex;
       flex-direction: column;
       gap: 1.5rem;
+      height: calc(100% - 6.5rem);
 
       & > .sidebarItem {
         cursor: pointer;
@@ -50,6 +48,16 @@
         border-top: 1px solid #949393;
         padding: 0.5rem 0;
         padding-top: 1.7rem;
+      }
+
+      & > .logoutBtn {
+        margin-top: auto;
+        transition: all linear 0.3s;
+
+        &:hover {
+          color: white;
+          text-decoration: underline;
+        }
       }
     }
   }

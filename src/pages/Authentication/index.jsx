@@ -38,20 +38,27 @@ export const Login = () => {
       .post(BACKENDURL + "/user/signin", userCredentials)
       .then((response) => {
         if (response?.data?.status) {
-          Toastify(response?.data?.message, "error");
-          localStorage.setItem("VBemail", userCredentials?.email);
+          Toastify(response?.data?.message, "success");
+          localStorage.setItem("VBemail", response?.data?.data[0]?.email);
           localStorage.setItem(
             "VBrememberme",
             userCredentials?.isPasswordRemember
           );
-          // navigate("/dashboard");
+          navigate("/dashboard");
         } else {
           Toastify(response?.data?.message, "error");
         }
         console.log(response, "Login user response");
       })
       .catch((error) => {
-        console.log(error?.message, "Login user error");
+        console.log(error, "Login user error");
+        Toastify(
+          error?.response?.data?.message
+            ? error?.response?.data?.message
+            : error?.message,
+          "error",
+          "error"
+        );
       });
   }
 
@@ -115,25 +122,25 @@ export const SignUp = () => {
   function createUser() {
     if (userCredentials?.password !== userCredentials?.confirmPassword) {
       Toastify("Password doesn't match!", "error");
+    } else {
+      // console.log(userCredentials, "create user credentials");
+      delete userCredentials.confirmPassword;
+      axios
+        .post(BACKENDURL + "/user/signup", userCredentials)
+        .then((response) => {
+          if (response?.data?.status) {
+            Toastify(response?.data?.message, "error");
+            localStorage.setItem("VBemail", userCredentials?.email);
+            navigate("/dashboard");
+          } else {
+            Toastify(response?.data?.message, "error");
+          }
+          console.log(response, "create user response");
+        })
+        .catch((error) => {
+          console.log(error?.message, "create user error");
+        });
     }
-
-    // console.log(userCredentials, "create user credentials");
-    delete userCredentials.confirmPassword;
-    axios
-      .post(BACKENDURL + "/user/signup", userCredentials)
-      .then((response) => {
-        if (response?.data?.status) {
-          Toastify(response?.data?.message, "error");
-          localStorage.setItem("VBemail", userCredentials?.email);
-          navigate("/dashboard");
-        } else {
-          Toastify(response?.data?.message, "error");
-        }
-        console.log(response, "create user response");
-      })
-      .catch((error) => {
-        console.log(error?.message, "create user error");
-      });
   }
 
   return (
