@@ -10,6 +10,10 @@ import Error from "./pages/Error";
 import DashboardLayout from "./layout/Dashboard";
 import Clients from "./pages/Clients";
 import ClientForm from "./components/ClientForm";
+import PetRecords from "./pages/PetRecords";
+import PetsForm from "./components/PetsForm";
+import Pets from "./pages/Pets";
+import PetRecordsForm from "./components/PetRecordsForm";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -29,7 +33,24 @@ const router = createBrowserRouter(
           element={<DashboardLayout child={<ClientForm />} />}
         ></Route>
       </Route>
-      <Route path="records" element={<DashboardLayout child="" />} />
+      <Route path="pets/">
+        <Route path="" element={<DashboardLayout child={<Pets />} />}></Route>
+        <Route
+          path="create"
+          element={<DashboardLayout child={<PetsForm />} />}
+        ></Route>
+      </Route>
+      <Route path="records/">
+        <Route
+          path=""
+          element={<DashboardLayout child={<PetRecords />} />}
+        ></Route>
+        <Route
+          path="create"
+          element={<DashboardLayout child={<PetRecordsForm />} />}
+        ></Route>
+      </Route>
+
       <Route path="*" element={<Error />} />
     </Route>
   )

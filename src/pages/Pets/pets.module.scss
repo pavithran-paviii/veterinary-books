@@ -1,0 +1,39 @@
+@import "../../index.scss";
+
+.client {
+  position: relative;
+  padding: 2rem;
+  height: 100%;
+  overflow: hidden;
+
+  & > .topBar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 2rem;
+
+    & > .searchOption {
+      padding: 1rem 1.5rem;
+      border: 1px solid grey;
+      min-width: 450px;
+      border-radius: 15px;
+      outline: none;
+
+      &:focus {
+        border: 1px solid $primary-color;
+      }
+    }
+
+    & > .addClient {
+      background: $primary-color;
+      color: white;
+      padding: 1rem 2rem;
+      border-radius: 35px;
+      margin-left: auto;
+      width: max-content;
+      cursor: pointer;
+      outline: none;
+      border: none;
+    }
+  }
+}

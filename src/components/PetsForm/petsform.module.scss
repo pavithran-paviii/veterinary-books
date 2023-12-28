@@ -1,0 +1,20 @@
+@import "../../index.scss";
+
+.recordsForm {
+  padding: 2.5rem;
+  transition: all linear 0.3s;
+
+  & > .title {
+    font-size: 2rem;
+    font-weight: 500;
+    color: $primary-color;
+  }
+
+  & > .recordsFields {
+    margin-top: 2rem;
+    max-width: 800px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.75rem;
+  }
+}
