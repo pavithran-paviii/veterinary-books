@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import classNames from "./authentication.module.scss";
 
 //assets
@@ -13,6 +13,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
 import axios from "axios";
 import { BACKENDURL } from "../../assets/data/constant";
+import { GlobalContext } from "../../context/globalContext";
 
 const Authentication = ({ child }) => {
   return (
@@ -31,14 +32,16 @@ export default Authentication;
 
 export const Login = () => {
   const navigate = useNavigate();
+  const { setEmail } = useContext(GlobalContext);
   const [userCredentials, setUserCredentials] = useState({});
 
-  function loginUser() {
+  async function loginUser() {
     axios
       .post(BACKENDURL + "/user/signin", userCredentials)
       .then((response) => {
         if (response?.data?.status) {
           Toastify(response?.data?.message, "success");
+          setEmail(response?.data?.data[0]?.email);
           localStorage.setItem("VBemail", response?.data?.data[0]?.email);
           localStorage.setItem(
             "VBrememberme",
@@ -46,7 +49,7 @@ export const Login = () => {
           );
           setTimeout(() => {
             navigate("/dashboard");
-          }, 500);
+          }, 100);
         } else {
           Toastify(response?.data?.message, "error");
         }
@@ -63,6 +66,10 @@ export const Login = () => {
         );
       });
   }
+
+  useEffect(() => {
+    localStorage.clear();
+  }, []);
 
   return (
     <div className={classNames.login}>

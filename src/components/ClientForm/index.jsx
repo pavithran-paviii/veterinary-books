@@ -1,17 +1,20 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import classNames from "./clientform.module.scss";
 import CustomInput, { CustomButton, Toastify } from "../Custom";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { BACKENDURL } from "../../assets/data/constant";
+import { GlobalContext } from "../../context/globalContext";
 
 const ClientForm = () => {
   const navigate = useNavigate();
+  const { email } = useContext(GlobalContext);
   const [clientForm, setClientForm] = useState({});
 
   //functions
 
   function createClientForm() {
+    clientForm.refMail = email;
     axios
       .post(BACKENDURL + "/client", clientForm)
       .then((response) => {

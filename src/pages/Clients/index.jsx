@@ -1,12 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import classNames from "./clients.module.scss";
 import { useNavigate } from "react-router-dom";
 import { Toastify } from "../../components/Custom";
 import axios from "axios";
 import { BACKENDURL } from "../../assets/data/constant";
+import { GlobalContext } from "../../context/globalContext";
 
 const Clients = () => {
   const navigate = useNavigate();
+  const { email } = useContext(GlobalContext);
   const [searchQuery, setSearchQuery] = useState("");
   const [allClients, setAllClients] = useState([]);
 
@@ -14,7 +16,7 @@ const Clients = () => {
 
   function getAllClients() {
     axios
-      .get(BACKENDURL + "/client")
+      .get(BACKENDURL + `/client/${email}`)
       .then((response) => {
         setAllClients(response?.data?.data);
         console.log(response, "all clients response");
@@ -67,15 +69,23 @@ const Clients = () => {
           </thead>
           <tbody>
             {allClients?.length > 0 &&
-              allClients?.map((eachItem, index) => {
-                return (
-                  <tr key={eachItem?.name + index}>
-                    <td>{eachItem?.name}</td>
-                    <td>{eachItem?.email}</td>
-                    <td>{eachItem?.phoneNumber}</td>
-                  </tr>
-                );
-              })}
+              allClients
+                ?.filter((eachClient) => {
+                  let searchText = searchQuery?.toLowerCase();
+                  return (
+                    eachClient?.email?.includes(searchText) ||
+                    eachClient?.name?.includes(searchText)
+                  );
+                })
+                .map((eachItem, index) => {
+                  return (
+                    <tr key={eachItem?.name + index}>
+                      <td>{eachItem?.name}</td>
+                      <td>{eachItem?.email}</td>
+                      <td>{eachItem?.phoneNumber}</td>
+                    </tr>
+                  );
+                })}
           </tbody>
         </table>
       </div>
