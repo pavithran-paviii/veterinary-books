@@ -1,0 +1,181 @@
+@import "../../index.scss";
+
+.inventory {
+  position: relative;
+  padding: 2rem;
+  height: 100%;
+  overflow: hidden;
+
+  & > .miniOverview {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+
+    & > div {
+      padding: 2rem;
+      border: 1px solid #e5e5e5;
+      border-radius: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+
+      & > .title {
+        font-size: 2rem;
+        font-weight: 500;
+        color: $primary-color;
+        margin-bottom: 0.5rem;
+      }
+
+      & > .stockItems {
+        font-size: 1.4rem;
+      }
+
+      & > .stockValue {
+        font-size: 1.4rem;
+      }
+    }
+  }
+
+  & > .topBar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 3rem 0;
+
+    & > .detailedSearch {
+      position: relative;
+
+      & > .searchOption {
+        padding: 1rem 1.5rem;
+        border: 1px solid grey;
+        min-width: 450px;
+        border-radius: 10px;
+        outline: none;
+
+        &:focus {
+          border: 1px solid $primary-color;
+        }
+      }
+
+      & > .searchDropdown {
+        position: absolute;
+        top: 100%;
+        width: 100%;
+        left: 0;
+        background: white;
+        border: 1px solid grey;
+        border-radius: 0 0 10px 10px;
+
+        & > .eachInventoryItem {
+          padding: 1rem;
+          cursor: pointer;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          transition: all linear 0.3s;
+
+          &:hover {
+            background: $primary-color;
+            color: white;
+          }
+        }
+      }
+    }
+
+    & > .addinventory {
+      background: $primary-color;
+      color: white;
+      padding: 1rem 2rem;
+      border-radius: 35px;
+      margin-left: auto;
+      width: max-content;
+      cursor: pointer;
+      outline: none;
+      border: none;
+    }
+  }
+
+  & > .tableContainer {
+    height: calc(100% - 4rem);
+
+    & > table {
+      width: 100%;
+
+      th,
+      td {
+        padding: 1rem;
+        text-align: left;
+      }
+
+      thead {
+        background: $primary-color;
+        color: white;
+      }
+
+      tbody {
+        border: 1px solid #e5e5e5;
+        & > tr {
+          border-bottom: 1px solid #e5e5e5;
+        }
+
+        & > :last-child {
+          border: none;
+        }
+      }
+
+      tr {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+  }
+
+  & > .increaseInventory {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    inset: 0;
+
+    & > .overlayContainer {
+      position: absolute;
+      background: #00000080;
+      inset: 0;
+      // z-index: 1;
+    }
+
+    & > .increaseContainer {
+      background: white;
+      padding: 3rem;
+      border-radius: 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      z-index: 1;
+
+      & > .title {
+        font-size: 2rem;
+        font-weight: 500;
+        color: $primary-color;
+      }
+
+      & > :nth-child(2) {
+        margin: 1rem 0;
+      }
+
+      & > .addinventory {
+        background: $primary-color;
+        color: white;
+        padding: 1rem 2rem;
+        border-radius: 10px;
+        margin-left: auto;
+        width: max-content;
+        cursor: pointer;
+        outline: none;
+        border: none;
+        margin-top: 1rem;
+      }
+    }
+  }
+}
