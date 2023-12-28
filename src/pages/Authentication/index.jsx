@@ -44,7 +44,9 @@ export const Login = () => {
             "VBrememberme",
             userCredentials?.isPasswordRemember
           );
-          navigate("/dashboard");
+          setTimeout(() => {
+            navigate("/dashboard");
+          }, 500);
         } else {
           Toastify(response?.data?.message, "error");
         }
