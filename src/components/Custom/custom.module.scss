@@ -195,3 +195,41 @@
     }
   }
 }
+
+.eachInputDatePicker {
+  & > .title {
+    font-size: 0.9rem;
+    position: relative;
+    width: max-content;
+
+    & > img {
+      position: absolute;
+      top: 1px;
+      right: -0.95rem;
+      width: 0.5rem;
+      height: 0.5rem;
+    }
+  }
+
+  & > .inputContainer {
+    color: var(--font-color);
+    padding: 1rem 1.5rem;
+    border-radius: 10px;
+    border: 1px solid rgba(229, 229, 229, 0.4);
+    font-size: 0.8rem;
+    background: white;
+    margin-top: 1rem;
+    width: 100%;
+    max-width: 500px;
+    transition: all linear 0.3s;
+
+    // &:focus {
+    //   background: white;
+    //   border: 1.5px solid var(--main-color);
+    // }
+    // &:hover {
+    //   background: white;
+    //   border: 1.5px solid var(--main-color);
+    // }
+  }
+}

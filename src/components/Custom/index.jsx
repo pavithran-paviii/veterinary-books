@@ -10,6 +10,9 @@ import {
   IoMdArrowDropdown,
   IoMdArrowDropup,
 } from "react-icons/io";
+import flatpickr from "flatpickr";
+import "flatpickr/dist/flatpickr.min.css";
+import "flatpickr/dist/themes/material_blue.css";
 
 const CustomInput = ({
   title,
@@ -354,3 +357,54 @@ export const CustomDropdown = ({
 export function Toastify(message, type) {
   toast(message, type);
 }
+
+export const EachCustomDatePicker = ({
+  title,
+  placeholder,
+  name,
+  stateValue,
+  setState,
+  mandatory,
+}) => {
+  const datepickerRef = useRef(null);
+
+  useEffect(() => {
+    if (datepickerRef.current) {
+      const options = {
+        enableTime: true,
+        dateFormat: "Y-m-dTH:i:S",
+        // Other options here
+        onChange: function (selectedDates, dateStr, instance) {
+          // console.log("Selected start date:", dateStr, datepickerRef.current);
+          if (name) {
+            setState((prev) => {
+              return { ...prev, [name]: dateStr };
+            });
+          } else {
+            setState(dateStr);
+          }
+        },
+      };
+
+      flatpickr(datepickerRef.current, options);
+    }
+  }, []);
+
+  return (
+    <div className={classNames.eachInputDatePicker}>
+      <div className={classNames.title}>{title}</div>
+      <input
+        type="text"
+        id="datepicker"
+        ref={datepickerRef}
+        className={classNames.inputContainer}
+        placeholder={placeholder}
+        name={name}
+        value={name ? stateValue[name] : stateValue ? stateValue : ""}
+        // onChange={(event) => {
+        //   setState({ ...stateValue, [name]: event?.target?.value });
+        // }}
+      />
+    </div>
+  );
+};
