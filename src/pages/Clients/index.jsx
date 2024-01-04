@@ -43,6 +43,7 @@ const Clients = () => {
 
   function updateInventoryItem() {
     nextRemainderForm.email = nextRemainder;
+    nextRemainderForm.refMail = email;
     axios
       .put(BACKENDURL + "/client/update", nextRemainderForm)
       .then((response) => {

@@ -13,6 +13,7 @@ const PetRecords = () => {
           type="text"
           className={classNames.searchOption}
           placeholder="Search records..."
+          value={searchQuery}
           onChange={(event) => setSearchQuery(event?.target?.value)}
         />
         <button
