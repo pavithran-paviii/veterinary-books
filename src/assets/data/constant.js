@@ -1,1 +1,1 @@
-export const BACKENDURL = "http://backend.zafapetcare.com";
+export const BACKENDURL = "https://backend.zafapetcare.com";
