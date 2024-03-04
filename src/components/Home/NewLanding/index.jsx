@@ -41,7 +41,7 @@ const NewLanding = ({ newLandingVisible, setNewLandingVisible }) => {
         <div className={classNames.leftContainer}>
           <img src={fullLogo} alt="fullLogo" />
           <div>
-            <h2>ONE STOP FOR ALL YOUR PET'S RECORDS..</h2>
+            <h2>ONE STOP FOR ALL YOUR PET'S RECORDS</h2>
 
             <h5>Create an account & manage the medical records</h5>
             <button className={classNames.getStarted}>
