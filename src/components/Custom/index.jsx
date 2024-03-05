@@ -372,15 +372,21 @@ export const EachCustomDatePicker = ({
     if (datepickerRef.current) {
       const options = {
         enableTime: true,
-        dateFormat: "Y-m-dTH:i:S",
         // Other options here
+        dateFormat: "Y-m-dTH:i:S\\Z",
         time_24hr: true,
         utc: true,
         onChange: function (selectedDates, dateStr, instance) {
-          // console.log("Selected start date:", dateStr, datepickerRef.current);
+          console.log(
+            instance.selectedDates[0].toISOString(),
+            "selected datee"
+          );
           if (name) {
             setState((prev) => {
-              return { ...prev, [name]: dateStr };
+              return {
+                ...prev,
+                [name]: instance.selectedDates[0].toISOString(),
+              };
             });
           } else {
             setState(dateStr);
