@@ -49,7 +49,9 @@ const Clients = () => {
       .then((response) => {
         setNextRemainder(false);
         if (response?.data?.status) {
-          window?.location?.reload();
+          setTimeout(() => {
+            window?.location?.reload();
+          }, 3000);
           Toastify(response?.data?.message, "success");
         } else {
           Toastify(response?.data?.message, "error");
