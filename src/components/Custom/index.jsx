@@ -374,6 +374,8 @@ export const EachCustomDatePicker = ({
         enableTime: true,
         dateFormat: "Y-m-dTH:i:S",
         // Other options here
+        time_24hr: true,
+        utc: true,
         onChange: function (selectedDates, dateStr, instance) {
           // console.log("Selected start date:", dateStr, datepickerRef.current);
           if (name) {
