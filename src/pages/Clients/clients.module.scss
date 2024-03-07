@@ -39,6 +39,7 @@
 
   & > .tableContainer {
     height: calc(100% - 82px);
+    overflow-y: scroll;
 
     & > table {
       width: 100%;
