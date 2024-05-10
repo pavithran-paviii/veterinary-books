@@ -6,7 +6,7 @@ import {
   EachCustomDatePicker,
   Toastify,
 } from "../../components/Custom";
-import axios from "axios";
+import axios, { Axios } from "axios";
 import { BACKENDURL } from "../../assets/data/constant";
 import { GlobalContext } from "../../context/globalContext";
 import { CiEdit } from "react-icons/ci";
@@ -17,6 +17,7 @@ const Clients = () => {
   const { email } = useContext(GlobalContext);
   const [searchQuery, setSearchQuery] = useState("");
   const [allClients, setAllClients] = useState([]);
+  const [localRefresh, setLocalRefresh] = useState(false);
   const [nextRemainder, setNextRemainder] = useState("");
   const [nextRemainderForm, setNextRemainderForm] = useState({});
 
@@ -70,9 +71,23 @@ const Clients = () => {
       });
   }
 
+  async function deleteClient(clientID) {
+    try {
+      let response = await axios.delete(BACKENDURL + `/client/${clientID}`);
+      if (response?.data?.status) {
+        setLocalRefresh((prev) => !prev);
+        Toastify(response?.data?.message, "success");
+      } else {
+        Toastify(response?.data?.message, "error");
+      }
+    } catch (error) {
+      console.log(error?.message, "Error while deleting client");
+    }
+  }
+
   useEffect(() => {
     getAllClients();
-  }, []);
+  }, [localRefresh]);
 
   return (
     <div className={classNames.client}>
@@ -148,7 +163,9 @@ const Clients = () => {
                         />
                       </td>
                       <td>
-                        <MdDeleteOutline />
+                        <MdDeleteOutline
+                          onClick={() => deleteClient(eachItem?._id)}
+                        />
                       </td>
                     </tr>
                   );
