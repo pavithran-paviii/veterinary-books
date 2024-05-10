@@ -172,7 +172,7 @@ export const SignUp = () => {
           setState={setUserCredentials}
         />
         <CustomDropdown
-          dropdown={["Docter", "Client"]}
+          dropdown={["Doctor", "Client"]}
           name="role"
           title="Select role"
           stateValue={userCredentials}
