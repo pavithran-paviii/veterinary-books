@@ -11,6 +11,9 @@ import { BACKENDURL } from "../../assets/data/constant";
 import { GlobalContext } from "../../context/globalContext";
 import { CiEdit } from "react-icons/ci";
 import { MdDeleteOutline } from "react-icons/md";
+import moment from "moment";
+import "moment-timezone";
+moment.tz.setDefault("Asia/Kolkata");
 
 const Clients = () => {
   const navigate = useNavigate();
@@ -134,73 +137,94 @@ const Clients = () => {
                 })
                 .map((eachItem, index) => {
                   return (
-                    <tr key={eachItem?.name + index}>
-                      <td>{eachItem?.name}</td>
-                      <td>{eachItem?.email}</td>
-                      <td>{eachItem?.phoneNumber}</td>
-                      <td>
-                        {eachItem?.remainderDates?.length > 0
-                          ? eachItem?.remainderDates
-                              ?.map((dateString) => new Date(dateString))
-                              .sort((a, b) => a - b)
-                              .map((eachDate, index) => {
-                                return (
-                                  <div
-                                    key={"remainderdate" + index}
-                                    style={{ marginBottom: "0.5rem" }}
-                                  >
-                                    {new Date(eachDate).toLocaleDateString(
-                                      "en-GB"
-                                    )}
-                                  </div>
-                                );
-                              })
-                          : "-"}
-                      </td>
-                      <td>
-                        <CiEdit
-                          onClick={() => setNextRemainder(eachItem?.email)}
-                        />
-                      </td>
-                      <td>
-                        <MdDeleteOutline
-                          onClick={() => deleteClient(eachItem?._id)}
-                        />
-                      </td>
-                    </tr>
+                    <div>
+                      <tr key={eachItem?.name + index}>
+                        <td>{eachItem?.name}</td>
+                        <td>{eachItem?.email}</td>
+                        <td>{eachItem?.phoneNumber}</td>
+                        <td>
+                          {eachItem?.remainderDates?.length > 0
+                            ? eachItem?.remainderDates
+                                ?.map((dateString) => new Date(dateString))
+                                .sort((a, b) => a - b)
+                                .map((eachDate, index) => {
+                                  return (
+                                    <div
+                                      key={"remainderdate" + index}
+                                      style={{ marginBottom: "0.5rem" }}
+                                    >
+                                      {new Date(eachDate).toLocaleDateString(
+                                        "en-GB"
+                                      )}
+                                    </div>
+                                  );
+                                })
+                            : "-"}
+                        </td>
+                        <td>
+                          <CiEdit
+                            onClick={() => {
+                              setNextRemainderForm({});
+                              setNextRemainder(eachItem?.email);
+                            }}
+                          />
+                        </td>
+                        <td>
+                          <MdDeleteOutline
+                            onClick={() => deleteClient(eachItem?._id)}
+                          />
+                        </td>
+                      </tr>
+                      {nextRemainder === eachItem?.email && (
+                        <div className={classNames.nextRemainder}>
+                          <div className={classNames.increaseContainer}>
+                            <div className={classNames.title}>
+                              Select Next Remainder
+                            </div>
+                            <div className={classNames.inventoryFields}>
+                              <EachCustomDatePicker
+                                title=""
+                                placeholder="Select next remainder"
+                                name="remainderDate"
+                                stateValue={nextRemainderForm}
+                                setState={setNextRemainderForm}
+                              />
+                              <CustomButton
+                                buttonText="Update Inventory"
+                                bg="#00638e"
+                                color="white"
+                                func={updateInventoryItem}
+                              />
+
+                              <div
+                                className={classNames.remainderDate}
+                                style={{
+                                  visibility: nextRemainderForm?.remainderDate
+                                    ? ""
+                                    : "hidden",
+                                  pointerEvents:
+                                    nextRemainderForm?.remainderDate
+                                      ? ""
+                                      : "none",
+                                }}
+                              >
+                                Next remainder is set on{" "}
+                                <span>
+                                  {moment(nextRemainderForm.remainderDate)
+                                    .tz("Asia/Kolkata")
+                                    .format("MMMM D, YYYY, h:mm A")}
+                                </span>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      )}
+                    </div>
                   );
                 })}
           </tbody>
         </table>
       </div>
-      {nextRemainder ? (
-        <div className={classNames.nextRemainder}>
-          <div
-            className={classNames.overlayContainer}
-            onClick={() => setNextRemainder(false)}
-          ></div>
-          <div className={classNames.increaseContainer}>
-            <div className={classNames.title}>Select Next Remainder</div>
-            <div className={classNames.inventoryFields}>
-              <EachCustomDatePicker
-                title=""
-                placeholder="Select next remainder"
-                name="remainderDate"
-                stateValue={nextRemainderForm}
-                setState={setNextRemainderForm}
-              />
-              <CustomButton
-                buttonText="Update Inventory"
-                bg="#00638e"
-                color="white"
-                func={updateInventoryItem}
-              />
-            </div>
-          </div>
-        </div>
-      ) : (
-        ""
-      )}
     </div>
   );
 };

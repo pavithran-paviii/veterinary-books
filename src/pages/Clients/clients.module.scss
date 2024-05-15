@@ -62,9 +62,7 @@
         height: calc(100% - 52px);
         border: 1px solid green;
 
-        & > tr {
-          border-bottom: 1px solid #e5e5e5;
-
+        tr {
           & > :nth-child(5),
           :nth-child(6) {
             display: flex;
@@ -74,6 +72,10 @@
             font-size: 1.2rem;
             cursor: pointer;
           }
+        }
+
+        & > div {
+          border-bottom: 1px solid #e5e5e5;
         }
 
         & > :last-child {
@@ -88,36 +90,31 @@
     }
   }
 
-  & > .nextRemainder {
-    position: absolute;
+  .nextRemainder {
+    // position: absolute;
     display: flex;
     justify-content: center;
     align-items: center;
-    inset: 0;
-
-    & > .overlayContainer {
-      position: absolute;
-      background: #00000080;
-      inset: 0;
-      // z-index: 1;
-    }
+    // inset: 0;
 
     & > .increaseContainer {
       background: white;
-      padding: 3rem;
+      // padding: 3rem;
       // border-radius: 10px;
       display: flex;
       flex-direction: column;
       align-items: center;
       z-index: 1;
-      position: absolute;
-      max-height: 90%;
-      overflow-y: scroll;
+      // position: absolute;
+      width: 100%;
+      // overflow-y: scroll;
 
       & > .title {
-        font-size: 2rem;
+        font-size: 1rem;
         font-weight: 500;
         color: $primary-color;
+        text-align: left;
+        width: 100%;
       }
 
       & > :nth-child(2) {
@@ -134,17 +131,24 @@
         cursor: pointer;
         outline: none;
         border: none;
-        margin-top: 1rem;
       }
 
       & > .inventoryFields {
         width: 325px;
         display: flex;
-        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
         gap: 1rem;
+        width: 100%;
 
         & > button {
-          margin-top: 2rem;
+          margin-top: 1rem;
+        }
+
+        & > .remainderDate {
+          & > span {
+            color: $primary-color;
+          }
         }
       }
     }
