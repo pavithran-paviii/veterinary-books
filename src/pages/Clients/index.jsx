@@ -10,6 +10,7 @@ import axios, { Axios } from "axios";
 import { BACKENDURL } from "../../assets/data/constant";
 import { GlobalContext } from "../../context/globalContext";
 import { CiEdit } from "react-icons/ci";
+import { IoMdClose } from "react-icons/io";
 import { MdDeleteOutline } from "react-icons/md";
 import moment from "moment";
 import "moment-timezone";
@@ -46,7 +47,7 @@ const Clients = () => {
   }
 
   function updateInventoryItem() {
-    nextRemainderForm.email = nextRemainder;
+    nextRemainderForm.phoneNumber = nextRemainder;
     nextRemainderForm.refMail = email;
     axios
       .put(BACKENDURL + "/client/update", nextRemainderForm)
@@ -162,12 +163,21 @@ const Clients = () => {
                             : "-"}
                         </td>
                         <td>
-                          <CiEdit
-                            onClick={() => {
-                              setNextRemainderForm({});
-                              setNextRemainder(eachItem?.email);
-                            }}
-                          />
+                          {nextRemainder === eachItem?.phoneNumber ? (
+                            <IoMdClose
+                              onClick={() => {
+                                setNextRemainderForm({});
+                                setNextRemainder("");
+                              }}
+                            />
+                          ) : (
+                            <CiEdit
+                              onClick={() => {
+                                setNextRemainderForm({});
+                                setNextRemainder(eachItem?.phoneNumber);
+                              }}
+                            />
+                          )}
                         </td>
                         <td>
                           <MdDeleteOutline
@@ -175,7 +185,7 @@ const Clients = () => {
                           />
                         </td>
                       </tr>
-                      {nextRemainder === eachItem?.email && (
+                      {nextRemainder === eachItem?.phoneNumber && (
                         <div className={classNames.nextRemainder}>
                           <div className={classNames.increaseContainer}>
                             <div className={classNames.title}>
