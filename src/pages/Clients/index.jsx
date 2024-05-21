@@ -54,9 +54,7 @@ const Clients = () => {
       .then((response) => {
         setNextRemainder(false);
         if (response?.data?.status) {
-          setTimeout(() => {
-            window?.location?.reload();
-          }, 3000);
+          setLocalRefresh((prev) => !prev);
           Toastify(response?.data?.message, "success");
         } else {
           Toastify(response?.data?.message, "error");
