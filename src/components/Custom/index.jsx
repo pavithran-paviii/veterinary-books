@@ -204,51 +204,85 @@ export const CustomDropdown = ({
         </span>
         {isOpen && (
           <ul className="dropdown-list">
-            {title === "Select the timezone" && dropdown?.length > 0
-              ? dropdown?.map((eachitem, index) => {
-                  return (
-                    <li
-                      onClick={(event) => {
-                        event.stopPropagation();
-                        selectOption(
-                          eachitem[mapVal?.name] +
-                            " (" +
-                            eachitem[mapVal?.name1] +
-                            ")"
-                        );
-                        setState({
-                          ...stateValue,
-                          TimeZone: eachitem?.UTCDifference,
-                          TimeZoneAbbrevation: eachitem?.Abbreviation,
-                        });
-                      }}
-                      key={eachitem[mapVal?.name] + index}
-                    >
-                      {eachitem[mapVal?.name] +
-                        " (" +
-                        eachitem[mapVal?.name1] +
-                        ")"}
-                    </li>
-                  );
-                })
+            {dropdown?.length > 3 && isOpen && (
+              <li
+                style={{
+                  display: dropdown?.length <= 3 ? "none" : "",
+                }}
+              >
+                <input
+                  ref={inputRef}
+                  type="text"
+                  placeholder="Search.."
+                  value={searchQuery}
+                  onChange={(event) => setSearchQuery(event.target.value)}
+                  onClick={(event) => event.stopPropagation()}
+                />
+              </li>
+            )}
+            {type === "obj2Names" && dropdown?.length > 0
+              ? dropdown
+                  ?.filter((row) => {
+                    // Convert the row object values to an array and check if any value matches the search query
+                    const values = Object?.values(row);
+                    const searchQueryy = searchQuery?.toLowerCase(); // Convert the search query to lowercase for a case-insensitive search
+
+                    return values?.some((value) => {
+                      if (typeof value === "string") {
+                        return value?.toLowerCase()?.includes(searchQueryy);
+                      }
+                      return false;
+                    });
+                  })
+                  ?.map((eachitem, index) => {
+                    return (
+                      <li
+                        onClick={(event) => {
+                          event.stopPropagation();
+                          selectOption(
+                            eachitem[mapVal?.name] +
+                              " (" +
+                              eachitem[mapVal?.name1] +
+                              ")"
+                          );
+                          setState({
+                            ...stateValue,
+                            [name]: eachitem[stateVal],
+                          });
+                        }}
+                        key={eachitem[mapVal?.name] + index}
+                      >
+                        {eachitem[mapVal?.name] +
+                          " (" +
+                          eachitem[mapVal?.name1] +
+                          ")"}
+                      </li>
+                    );
+                  })
               : type === "obj" && dropdown?.length > 0
-              ? dropdown?.map((eachitem, index) => {
-                  return (
-                    <li
-                      onClick={(event) => {
-                        event.stopPropagation();
-                        selectOption(eachitem[mapVal?.name]);
-                        setState({
-                          ...stateValue,
-                          [name]: eachitem[stateVal],
-                        });
-                      }}
-                      key={eachitem[mapVal?.name] + index}
-                    >
-                      {eachitem[mapVal?.name]}
-                    </li>
-                  );
-                })
+              ? dropdown
+                  ?.filter((row) => {
+                    // Convert the row object values to an array and check if any value matches the search query
+                    const searchQueryy = searchQuery?.toLowerCase(); // Convert the search query to lowercase for a case-insensitive search
+                    return row?.toLowerCase()?.includes(searchQueryy);
+                  })
+                  ?.map((eachitem, index) => {
+                    return (
+                      <li
+                        onClick={(event) => {
+                          event.stopPropagation();
+                          selectOption(eachitem[mapVal?.name]);
+                          setState({
+                            ...stateValue,
+                            [name]: eachitem[stateVal],
+                          });
+                        }}
+                        key={eachitem[mapVal?.name] + index}
+                      >
+                        {eachitem[mapVal?.name]}
+                      </li>
+                    );
+                  })
               : title === "All Countries"
               ? dropdown?.length > 0 &&
                 dropdown

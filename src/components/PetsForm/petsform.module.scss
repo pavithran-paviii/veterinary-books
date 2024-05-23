@@ -1,8 +1,10 @@
 @import "../../index.scss";
 
 .recordsForm {
-  padding: 2.5rem;
+  padding: 1rem;
   transition: all linear 0.3s;
+  overflow-y: scroll;
+  height: 100%;
 
   & > .title {
     font-size: 2rem;
@@ -10,11 +12,60 @@
     color: $primary-color;
   }
 
+  & > .imageUploadContainer {
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+
+    & > .imageUpload {
+      width: 8rem;
+      height: 8rem;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border: 1px solid black;
+
+      & > img {
+        width: 90%;
+        height: 90%;
+        border-radius: 50%;
+      }
+    }
+
+    & > button {
+      padding: 0.7rem 2rem;
+    }
+
+    & > svg {
+      font-size: 2rem;
+      cursor: pointer;
+      color: #e53935;
+    }
+  }
+
   & > .recordsFields {
     margin-top: 2rem;
     max-width: 800px;
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1.75rem;
+    // display: grid;
+    // grid-template-columns: repeat(2, 1fr);
+    // gap: 1.75rem;
+
+    & > div {
+      width: 400px;
+      margin-bottom: 1rem;
+    }
+
+    & > .btnsContainer {
+      display: flex;
+      gap: 1rem;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 2rem;
+
+      & > button {
+        width: 50%;
+      }
+    }
   }
 }

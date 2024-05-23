@@ -11,7 +11,6 @@ import DashboardLayout from "./layout/Dashboard";
 import Clients from "./pages/Clients";
 import ClientForm from "./components/ClientForm";
 import PetRecords from "./pages/PetRecords";
-import PetsForm from "./components/PetsForm";
 import Pets from "./pages/Pets";
 import PetRecordsForm from "./components/PetRecordsForm";
 import Inventory from "./pages/Inventory";
@@ -37,10 +36,6 @@ const router = createBrowserRouter(
       </Route>
       <Route path="pets/">
         <Route path="" element={<DashboardLayout child={<Pets />} />}></Route>
-        <Route
-          path="create"
-          element={<DashboardLayout child={<PetsForm />} />}
-        ></Route>
       </Route>
       <Route path="records/">
         <Route

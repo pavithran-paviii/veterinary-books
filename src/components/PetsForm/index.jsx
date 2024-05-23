@@ -1,30 +1,61 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import classNames from "./petsform.module.scss";
-import CustomInput, { CustomButton, Toastify } from "../Custom";
+import CustomInput, { CustomButton, CustomDropdown, Toastify } from "../Custom";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { BACKENDURL } from "../../assets/data/constant";
+import { GlobalContext } from "../../context/globalContext";
 
-const PetsForm = () => {
+//assets
+import { MdDelete } from "react-icons/md";
+import dogProfile from "../../assets/images/Profile/dog.svg";
+import catProfile from "../../assets/images/Profile/cat.svg";
+import vetenerianProfile from "../../assets/images/Profile/veterinarian.svg";
+
+const PetsForm = ({ setLocalStep }) => {
   const navigate = useNavigate();
+  const { email } = useContext(GlobalContext);
+
+  //local states
   const [petsForm, setPetsForm] = useState({});
+  const [allClients, setAllClients] = useState([]);
 
   //functions
 
   function createPetsForm() {
+    console.log(petsForm, "petsForm");
+    // axios
+    //   .post(BACKENDURL + "/records", petsForm)
+    //   .then((response) => {
+    //     if (response?.data?.status) {
+    //       Toastify(response?.data?.message, "success");
+    //       navigate("/records");
+    //     } else {
+    //       Toastify(response?.data?.message, "error");
+    //     }
+    //     console.log(response, "Create records response");
+    //   })
+    //   .catch((error) => {
+    //     console.log(error, "Create records error");
+    //     Toastify(
+    //       error?.response?.data?.message
+    //         ? error?.response?.data?.message
+    //         : error?.message,
+    //       "error",
+    //       "error"
+    //     );
+    //   });
+  }
+
+  function getAllClients() {
     axios
-      .post(BACKENDURL + "/records", petsForm)
+      .get(BACKENDURL + `/client/${email}`)
       .then((response) => {
-        if (response?.data?.status) {
-          Toastify(response?.data?.message, "success");
-          navigate("/records");
-        } else {
-          Toastify(response?.data?.message, "error");
-        }
-        console.log(response, "Create records response");
+        setAllClients(response?.data?.data);
+        console.log(response, "all clients response");
       })
       .catch((error) => {
-        console.log(error, "Create records error");
+        console.log(error, "all clients error");
         Toastify(
           error?.response?.data?.message
             ? error?.response?.data?.message
@@ -35,9 +66,36 @@ const PetsForm = () => {
       });
   }
 
+  useEffect(() => {
+    if (email) {
+      getAllClients();
+    }
+  }, []);
+
   return (
     <div className={classNames.recordsForm}>
-      <h3 className={classNames.title}>Add Pet Records</h3>
+      {/* <h3 className={classNames.title}>Create New Pet</h3> */}
+      <div className={classNames.imageUploadContainer}>
+        <div className={classNames.imageUpload}>
+          <img
+            src={
+              petsForm?.type === "Dog"
+                ? dogProfile
+                : petsForm?.type === "Cat"
+                ? catProfile
+                : vetenerianProfile
+            }
+            alt="dogProfile"
+          />
+        </div>
+        <CustomButton
+          buttonText="Upload"
+          bg="#00638e"
+          color="white"
+          // func={createPetsForm}
+        />
+        <MdDelete />
+      </div>
       <div className={classNames.recordsFields}>
         <CustomInput
           title="Name"
@@ -53,6 +111,15 @@ const PetsForm = () => {
           stateValue={petsForm}
           setState={setPetsForm}
         />
+        <CustomDropdown
+          dropdown={["Dog", "Cat", "Others"]}
+          name="type"
+          title="Select Type"
+          stateValue={petsForm}
+          setState={setPetsForm}
+          topTitle="true"
+          type="single"
+        />
         <CustomInput
           title="Breed"
           placeHolder="Enter breed..."
@@ -60,28 +127,33 @@ const PetsForm = () => {
           stateValue={petsForm}
           setState={setPetsForm}
         />
-        <CustomInput
-          title="Pic"
-          placeHolder="Enter Pic..."
-          name="pic"
-          type="text"
+        <CustomDropdown
+          dropdown={allClients}
+          name="owner"
+          title="Select Owner"
           stateValue={petsForm}
           setState={setPetsForm}
+          topTitle="true"
+          type="obj2Names"
+          stateVal={"_id"}
+          mapVal={{ name: "name", name1: "phoneNumber" }}
         />
-        <CustomButton
-          buttonText="Back"
-          bg="black"
-          color="white"
-          func={() => {
-            navigate("/records");
-          }}
-        />
-        <CustomButton
-          buttonText="Create Pet Record"
-          bg="#00638e"
-          color="white"
-          func={createPetsForm}
-        />
+        <div className={classNames.btnsContainer}>
+          <CustomButton
+            buttonText="Back"
+            bg="black"
+            color="white"
+            func={() => {
+              setLocalStep("");
+            }}
+          />
+          <CustomButton
+            buttonText="Create"
+            bg="#00638e"
+            color="white"
+            func={createPetsForm}
+          />
+        </div>
       </div>
     </div>
   );
