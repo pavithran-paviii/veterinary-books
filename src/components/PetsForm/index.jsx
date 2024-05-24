@@ -17,39 +17,57 @@ import dogProfile from "../../assets/images/Profile/dog.svg";
 import catProfile from "../../assets/images/Profile/cat.svg";
 import vetenerianProfile from "../../assets/images/Profile/veterinarian.svg";
 
-const PetsForm = ({ setLocalStep }) => {
+const PetsForm = ({ setLocalStep, setLocalRefresh }) => {
   const navigate = useNavigate();
   const { email } = useContext(GlobalContext);
 
   //local states
   const [petsForm, setPetsForm] = useState({});
   const [allClients, setAllClients] = useState([]);
+  const [profileImageLocal, setProfileImageLocal] = useState("");
+  const [localLoading, setLocalLoading] = useState(false);
 
   //functions
 
   function createPetsForm() {
-    console.log(petsForm, "petsForm");
-    // axios
-    //   .post(BACKENDURL + "/records", petsForm)
-    //   .then((response) => {
-    //     if (response?.data?.status) {
-    //       Toastify(response?.data?.message, "success");
-    //       navigate("/records");
-    //     } else {
-    //       Toastify(response?.data?.message, "error");
-    //     }
-    //     console.log(response, "Create records response");
-    //   })
-    //   .catch((error) => {
-    //     console.log(error, "Create records error");
-    //     Toastify(
-    //       error?.response?.data?.message
-    //         ? error?.response?.data?.message
-    //         : error?.message,
-    //       "error",
-    //       "error"
-    //     );
-    //   });
+    setLocalLoading(true);
+    petsForm.refMail = email;
+
+    const petFormData = new FormData();
+
+    for (const key in petsForm) {
+      petFormData.append(key, petsForm[key]);
+    }
+
+    console.log(petFormData);
+
+    axios
+      .post(BACKENDURL + "/pet", petFormData, {
+        headers: {
+          "Content-Type": "multipart/form-data", // Make sure to set the content type
+        },
+      })
+      .then((response) => {
+        if (response?.data?.status) {
+          Toastify(response?.data?.message, "success");
+          setLocalStep("");
+          setLocalRefresh((prev) => !prev);
+        } else {
+          Toastify(response?.data?.message, "error");
+        }
+        setLocalLoading(false);
+      })
+      .catch((error) => {
+        console.log(error, "Create pets error");
+        setLocalLoading(false);
+        Toastify(
+          error?.response?.data?.message
+            ? error?.response?.data?.message
+            : error?.message,
+          "error",
+          "error"
+        );
+      });
   }
 
   function getAllClients() {
@@ -71,6 +89,23 @@ const PetsForm = ({ setLocalStep }) => {
       });
   }
 
+  const handleFileInputChange = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      // Read the file as a data URL
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onloadend = () => {
+        setProfileImageLocal(reader.result);
+      };
+      setPetsForm({
+        ...petsForm,
+        pic: file, // Set the uploaded photo in state
+      });
+      // console.log(reader, "Uploaded URL reader", reader.result);
+    }
+  };
+
   useEffect(() => {
     if (email) {
       getAllClients();
@@ -84,7 +119,9 @@ const PetsForm = ({ setLocalStep }) => {
         <div className={classNames.imageUpload}>
           <img
             src={
-              petsForm?.type === "Dog"
+              profileImageLocal
+                ? profileImageLocal
+                : petsForm?.type === "Dog"
                 ? dogProfile
                 : petsForm?.type === "Cat"
                 ? catProfile
@@ -93,11 +130,20 @@ const PetsForm = ({ setLocalStep }) => {
             alt="dogProfile"
           />
         </div>
+        <input
+          type="file"
+          accept="image/*"
+          className={classNames.uploadProfile}
+          id="profilePicUpload"
+          onChange={handleFileInputChange}
+        />
         <CustomButton
           buttonText="Upload"
           bg="#00638e"
           color="white"
-          // func={createPetsForm}
+          func={() => {
+            document.getElementById("profilePicUpload").click();
+          }}
         />
         <MdDelete />
       </div>
@@ -113,6 +159,13 @@ const PetsForm = ({ setLocalStep }) => {
           title="Age"
           placeHolder="Enter age..."
           name="age"
+          stateValue={petsForm}
+          setState={setPetsForm}
+        />
+        <CustomInput
+          title="Weight"
+          placeHolder="Enter weight..."
+          name="weight"
           stateValue={petsForm}
           setState={setPetsForm}
         />
@@ -164,6 +217,7 @@ const PetsForm = ({ setLocalStep }) => {
             bg="#00638e"
             color="white"
             func={createPetsForm}
+            loading={localLoading}
           />
         </div>
       </div>

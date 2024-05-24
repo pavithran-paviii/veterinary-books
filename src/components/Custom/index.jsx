@@ -55,11 +55,24 @@ const CustomInput = ({
 
 export default CustomInput;
 
-export const CustomButton = ({ image, svg, buttonText, func, bg, color }) => {
+export const CustomButton = ({
+  image,
+  svg,
+  buttonText,
+  func,
+  bg,
+  color,
+  loading,
+}) => {
   return (
     <button
       className={classNames.customButton}
-      style={{ background: bg ? bg : "", color: color ? color : "" }}
+      style={{
+        background: bg ? bg : "",
+        color: color ? color : "",
+        pointerEvents: loading ? "none" : "",
+        opacity: loading ? "0.5" : "1",
+      }}
       onClick={func}
     >
       {image && <img src={image} alt="" />}
