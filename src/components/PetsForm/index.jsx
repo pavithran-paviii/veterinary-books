@@ -1,6 +1,11 @@
 import React, { useContext, useEffect, useState } from "react";
 import classNames from "./petsform.module.scss";
-import CustomInput, { CustomButton, CustomDropdown, Toastify } from "../Custom";
+import CustomInput, {
+  CustomButton,
+  CustomDropdown,
+  CustomSelectOne,
+  Toastify,
+} from "../Custom";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { BACKENDURL } from "../../assets/data/constant";
@@ -119,6 +124,13 @@ const PetsForm = ({ setLocalStep }) => {
           setState={setPetsForm}
           topTitle="true"
           type="single"
+        />
+        <CustomSelectOne
+          stateValue={petsForm}
+          setState={setPetsForm}
+          name="sex"
+          title="Gender"
+          allOptions={[{ name: "Male" }, { name: "Female" }]}
         />
         <CustomInput
           title="Breed"

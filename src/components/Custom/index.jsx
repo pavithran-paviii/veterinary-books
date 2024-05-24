@@ -450,3 +450,50 @@ export const EachCustomDatePicker = ({
     </div>
   );
 };
+
+export const CustomSelectOne = ({
+  stateValue,
+  setState,
+  allOptions,
+  name,
+  title,
+}) => {
+  const [selected, setSelected] = useState("");
+  return (
+    <div className={classNames.customSelectOne}>
+      <div className={classNames.title}>{title}</div>
+      <div className={classNames.allOptions}>
+        {allOptions?.map((eachItem, index) => {
+          return (
+            <div
+              className={`${classNames.eachOption} ${
+                eachItem?.value
+                  ? eachItem?.value
+                  : eachItem?.name === selected
+                  ? classNames.selectedOption
+                  : ""
+              }`}
+              onClick={() => {
+                setSelected(eachItem?.value ? eachItem?.value : eachItem?.name);
+                if (name) {
+                  setState((prev) => {
+                    return {
+                      ...prev,
+                      [name]: eachItem?.value
+                        ? eachItem?.value
+                        : eachItem?.name,
+                    };
+                  });
+                } else {
+                  setState(eachItem?.value ? eachItem?.value : eachItem?.name);
+                }
+              }}
+            >
+              {eachItem?.name}
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+};
