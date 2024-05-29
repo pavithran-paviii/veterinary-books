@@ -7,6 +7,7 @@ import { BACKENDURL } from "../../assets/data/constant";
 import { GlobalContext } from "../../context/globalContext";
 import { MdDeleteOutline } from "react-icons/md";
 import { Toastify } from "../../components/Custom";
+import AllTabs from "./Subtabs/AllTabs";
 
 const Pets = () => {
   const navigate = useNavigate();
@@ -103,20 +104,31 @@ const Pets = () => {
                     })
                     .map((eachItem, index) => {
                       return (
-                        <div>
-                          <tr key={eachItem?.name + index}>
-                            <td>{eachItem?.name}</td>
-                            <td>{eachItem?.age}</td>
-                            <td>{eachItem?.sex}</td>
-                            <td>{eachItem?.type}</td>
-                            <td>{eachItem?.weight}</td>
-                            <td>
-                              <MdDeleteOutline
-                                onClick={() => deletePet(eachItem?._id)}
+                        <>
+                          <div>
+                            <tr
+                              key={eachItem?.name + index}
+                              onClick={() => setLocalStep(eachItem?._id)}
+                            >
+                              <td>{eachItem?.name}</td>
+                              <td>{eachItem?.age}</td>
+                              <td>{eachItem?.sex}</td>
+                              <td>{eachItem?.type}</td>
+                              <td>{eachItem?.weight}</td>
+                              <td>
+                                <MdDeleteOutline
+                                  onClick={() => deletePet(eachItem?._id)}
+                                />
+                              </td>
+                            </tr>
+                            {localStep === eachItem?._id && (
+                              <AllTabs
+                                selectedPet={eachItem}
+                                setLocalStep={setLocalStep}
                               />
-                            </td>
-                          </tr>
-                        </div>
+                            )}
+                          </div>
+                        </>
                       );
                     })}
               </tbody>

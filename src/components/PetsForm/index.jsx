@@ -17,7 +17,7 @@ import dogProfile from "../../assets/images/Profile/dog.svg";
 import catProfile from "../../assets/images/Profile/cat.svg";
 import vetenerianProfile from "../../assets/images/Profile/veterinarian.svg";
 
-const PetsForm = ({ setLocalStep, setLocalRefresh }) => {
+const PetsForm = ({ type, setLocalStep, setLocalRefresh, data }) => {
   const navigate = useNavigate();
   const { email } = useContext(GlobalContext);
 
@@ -107,19 +107,29 @@ const PetsForm = ({ setLocalStep, setLocalRefresh }) => {
   };
 
   useEffect(() => {
-    if (email) {
+    if (email && type !== "readOnly") {
       getAllClients();
+    }
+
+    if (type === "readOnly") {
+      console.log(data, "readonly data");
+      setPetsForm(data);
     }
   }, []);
 
   return (
-    <div className={classNames.recordsForm}>
+    <div
+      className={classNames.recordsForm}
+      style={{ pointerEvents: type === "readOnly" ? "none" : "" }}
+    >
       {/* <h3 className={classNames.title}>Create New Pet</h3> */}
       <div className={classNames.imageUploadContainer}>
         <div className={classNames.imageUpload}>
           <img
             src={
-              profileImageLocal
+              type === "readOnly"
+                ? petsForm?.pic
+                : profileImageLocal
                 ? profileImageLocal
                 : petsForm?.type === "Dog"
                 ? dogProfile
@@ -137,14 +147,18 @@ const PetsForm = ({ setLocalStep, setLocalRefresh }) => {
           id="profilePicUpload"
           onChange={handleFileInputChange}
         />
-        <CustomButton
-          buttonText="Upload"
-          bg="#00638e"
-          color="white"
-          func={() => {
-            document.getElementById("profilePicUpload").click();
-          }}
-        />
+        {type === "readOnly" ? (
+          ""
+        ) : (
+          <CustomButton
+            buttonText="Upload"
+            bg="#00638e"
+            color="white"
+            func={() => {
+              document.getElementById("profilePicUpload").click();
+            }}
+          />
+        )}
         <MdDelete />
       </div>
       <div className={classNames.recordsFields}>
@@ -177,6 +191,7 @@ const PetsForm = ({ setLocalStep, setLocalRefresh }) => {
           setState={setPetsForm}
           topTitle="true"
           type="single"
+          editable={type === "readOnly" ? false : true}
         />
         <CustomSelectOne
           stateValue={petsForm}
@@ -202,24 +217,29 @@ const PetsForm = ({ setLocalStep, setLocalRefresh }) => {
           type="obj2Names"
           stateVal={"_id"}
           mapVal={{ name: "name", name1: "phoneNumber" }}
+          editable={type === "readOnly" ? false : true}
         />
-        <div className={classNames.btnsContainer}>
-          <CustomButton
-            buttonText="Back"
-            bg="black"
-            color="white"
-            func={() => {
-              setLocalStep("");
-            }}
-          />
-          <CustomButton
-            buttonText="Create"
-            bg="#00638e"
-            color="white"
-            func={createPetsForm}
-            loading={localLoading}
-          />
-        </div>
+        {type === "readOnly" ? (
+          ""
+        ) : (
+          <div className={classNames.btnsContainer}>
+            <CustomButton
+              buttonText="Back"
+              bg="black"
+              color="white"
+              func={() => {
+                setLocalStep("");
+              }}
+            />
+            <CustomButton
+              buttonText="Create"
+              bg="#00638e"
+              color="white"
+              func={createPetsForm}
+              loading={localLoading}
+            />
+          </div>
+        )}
       </div>
     </div>
   );

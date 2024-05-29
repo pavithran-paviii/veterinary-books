@@ -111,6 +111,7 @@ export const CustomDropdown = ({
   type,
   stateVal,
   mapVal,
+  editable,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState(null);
@@ -154,18 +155,12 @@ export const CustomDropdown = ({
   };
 
   useEffect(() => {
-    if (
-      name === "selectedAppStaff" &&
-      Array?.isArray(dropdown) &&
-      dropdown?.length > 0
-    ) {
-      setState({
-        NameOfTeam: dropdown[0]?.NameOfTeam,
-        Icon: dropdown[0]?.Icon,
-        TeamUsername: dropdown[0]?.TeamUsername,
-      });
+    if (!editable && name && stateValue[name]) {
+      setSelectedOption(stateValue[name]);
+    } else if (!editable && stateValue && typeof stateValue !== "object") {
+      setSelectedOption(stateValue);
     }
-  }, [dropdown]);
+  }, [stateValue]);
 
   return (
     <div
@@ -184,7 +179,7 @@ export const CustomDropdown = ({
           pointerEvents: dropdown ? "" : "none",
           top: topTitle ? "2rem" : "",
           maxHeight: isOpen ? "400px" : "100%",
-          borderBottom: name === "selectedAppStaff" && !isOpen ? "none" : "",
+          borderBottom: "",
         }}
         ref={dropdownRef}
       >
@@ -199,18 +194,10 @@ export const CustomDropdown = ({
             ) : (
               ""
             )}
-            {name === "selectedAppStaff" && stateValue?.NameOfTeam
-              ? stateValue?.NameOfTeam
-              : stateValue?.NameOfTeam && !name === "IndustriesId"
-              ? stateValue?.NameOfTeam
-              : selectedOption
+            {selectedOption
               ? selectedOption
-              : name === "IndustriesId"
-              ? "Click to select industries"
               : title
               ? title
-              : name === "selectedAppStaff"
-              ? "Select an Option"
               : dropdown[0]?.NameOfTeam}
           </span>
           <span>{isOpen ? <IoMdArrowDropup /> : <IoMdArrowDropdown />}</span>
@@ -342,24 +329,6 @@ export const CustomDropdown = ({
                     </li>
                   );
                 })
-              : name === "IndustriesId" && dropdown?.length > 0
-              ? dropdown?.map((eachitem, index) => {
-                  return (
-                    <li
-                      onClick={(event) => {
-                        event.stopPropagation();
-                        selectOption(eachitem?.Name);
-                        setState({
-                          ...stateValue,
-                          [name]: eachitem?._id,
-                        });
-                      }}
-                      key={eachitem?.Name + index}
-                    >
-                      {eachitem?.Name}
-                    </li>
-                  );
-                })
               : dropdown?.length > 0 &&
                 dropdown?.map((eachitem, index) => {
                   return (
@@ -370,12 +339,6 @@ export const CustomDropdown = ({
                         if (name === "teamUsername") {
                           setState((prev) => {
                             return { ...prev, [name]: eachitem?.TeamUsername };
-                          });
-                        } else if (name === "selectedAppStaff") {
-                          setState({
-                            NameOfTeam: eachitem?.NameOfTeam,
-                            Icon: eachitem?.Icon,
-                            TeamUsername: eachitem?.TeamUsername,
                           });
                         } else {
                           setState({
@@ -472,6 +435,15 @@ export const CustomSelectOne = ({
   title,
 }) => {
   const [selected, setSelected] = useState("");
+
+  useEffect(() => {
+    if (name && stateValue[name]) {
+      setSelected(stateValue[name]);
+    } else if (stateValue) {
+      setSelected(stateValue);
+    }
+  }, [stateValue]);
+
   return (
     <div className={classNames.customSelectOne}>
       <div className={classNames.title}>{title}</div>
