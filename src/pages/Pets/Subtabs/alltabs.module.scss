@@ -42,6 +42,10 @@
         outline: none;
         background: $primary-color;
       }
+
+      & > :nth-child(2) {
+        background: $primary-red;
+      }
     }
   }
 }

@@ -106,6 +106,26 @@ const PetsForm = ({ type, setLocalStep, setLocalRefresh, data }) => {
     }
   };
 
+  async function deleteImage() {
+    try {
+      let response = await axios.delete(BACKENDURL + `/pet/deleteImage`, {
+        data: { key: petsForm?.imageKey },
+      });
+      if (response?.data?.status) {
+        Toastify(response?.data?.message, "success");
+        setLocalStep("");
+        setLocalRefresh((prev) => !prev);
+      } else {
+        Toastify(response?.data?.message, "error");
+      }
+      console.log(response, "Deleted image from bucket!");
+    } catch (error) {
+      console.log(error?.message, "Delete image from bucket!");
+    }
+  }
+
+  //renderings
+
   useEffect(() => {
     if (email && type !== "readOnly") {
       getAllClients();
@@ -118,13 +138,13 @@ const PetsForm = ({ type, setLocalStep, setLocalRefresh, data }) => {
   }, []);
 
   return (
-    <div
-      className={classNames.recordsForm}
-      style={{ pointerEvents: type === "readOnly" ? "none" : "" }}
-    >
+    <div className={classNames.recordsForm}>
       {/* <h3 className={classNames.title}>Create New Pet</h3> */}
       <div className={classNames.imageUploadContainer}>
-        <div className={classNames.imageUpload}>
+        <div
+          className={classNames.imageUpload}
+          style={{ pointerEvents: type === "readOnly" ? "none" : "" }}
+        >
           <img
             src={
               type === "readOnly"
@@ -159,9 +179,12 @@ const PetsForm = ({ type, setLocalStep, setLocalRefresh, data }) => {
             }}
           />
         )}
-        <MdDelete />
+        <MdDelete onClick={deleteImage} />
       </div>
-      <div className={classNames.recordsFields}>
+      <div
+        className={classNames.recordsFields}
+        style={{ pointerEvents: type === "readOnly" ? "none" : "" }}
+      >
         <CustomInput
           title="Name"
           placeHolder="Enter name..."

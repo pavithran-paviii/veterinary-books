@@ -18,6 +18,7 @@ const Pets = () => {
   const [localRefresh, setLocalRefresh] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [localStep, setLocalStep] = useState("");
+  const [selectedPet, setSelectedPet] = useState("");
 
   //functions
 
@@ -31,10 +32,28 @@ const Pets = () => {
     }
   }
 
+  async function deleteImage() {
+    try {
+      let response = await axios.delete(BACKENDURL + `/pet/deleteImage`, {
+        data: { key: selectedPet?.imageKey },
+      });
+      if (response?.data?.status) {
+        Toastify(response?.data?.message, "success");
+        setLocalStep("");
+        setLocalRefresh((prev) => !prev);
+      } else {
+        Toastify(response?.data?.message, "error");
+      }
+      console.log(response, "Deleted image from bucket!");
+    } catch (error) {
+      console.log(error?.message, "Delete image from bucket!");
+    }
+  }
+
   async function deletePet(petID) {
     try {
+      deleteImage();
       let response = await axios.delete(BACKENDURL + `/pet/${petID}`);
-
       if (response?.data?.status) {
         setLocalRefresh((prev) => !prev);
         Toastify(response?.data?.message, "success");
@@ -108,7 +127,10 @@ const Pets = () => {
                           <div>
                             <tr
                               key={eachItem?.name + index}
-                              onClick={() => setLocalStep(eachItem?._id)}
+                              onClick={() => {
+                                setLocalStep(eachItem?._id);
+                                setSelectedPet(eachItem);
+                              }}
                             >
                               <td>{eachItem?.name}</td>
                               <td>{eachItem?.age}</td>
