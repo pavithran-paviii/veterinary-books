@@ -8,7 +8,7 @@ import { GlobalContext } from "../../context/globalContext";
 
 const ClientForm = () => {
   const navigate = useNavigate();
-  const { email } = useContext(GlobalContext);
+  const { email, token } = useContext(GlobalContext);
   const [clientForm, setClientForm] = useState({});
 
   //functions
@@ -16,7 +16,13 @@ const ClientForm = () => {
   function createClientForm() {
     clientForm.refMail = email;
     axios
-      .post(BACKENDURL + "/client", clientForm)
+      .post(BACKENDURL + "/client", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+        data: clientForm,
+      })
       .then((response) => {
         if (response?.data?.status) {
           Toastify(response?.data?.message, "success");

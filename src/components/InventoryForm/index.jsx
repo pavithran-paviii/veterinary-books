@@ -8,7 +8,7 @@ import { GlobalContext } from "../../context/globalContext";
 
 const InventoryForm = () => {
   const navigate = useNavigate();
-  const { email } = useContext(GlobalContext);
+  const { email, token } = useContext(GlobalContext);
   const [inventoryForm, setInventoryForm] = useState({});
 
   //functions
@@ -16,7 +16,13 @@ const InventoryForm = () => {
   function createInventoryForm() {
     inventoryForm.refMail = email;
     axios
-      .post(BACKENDURL + "/inventory/create", inventoryForm)
+      .post(BACKENDURL + "/inventory/create", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+        data: inventoryForm,
+      })
       .then((response) => {
         if (response?.data?.status) {
           Toastify(response?.data?.message, "success");

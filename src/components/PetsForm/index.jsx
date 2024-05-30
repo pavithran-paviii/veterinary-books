@@ -19,7 +19,7 @@ import vetenerianProfile from "../../assets/images/Profile/veterinarian.svg";
 
 const PetsForm = ({ type, setLocalStep, setLocalRefresh, data }) => {
   const navigate = useNavigate();
-  const { email } = useContext(GlobalContext);
+  const { email, token } = useContext(GlobalContext);
 
   //local states
   const [petsForm, setPetsForm] = useState({});
@@ -42,10 +42,11 @@ const PetsForm = ({ type, setLocalStep, setLocalRefresh, data }) => {
     console.log(petFormData);
 
     axios
-      .post(BACKENDURL + "/pet", petFormData, {
+      .post(BACKENDURL + "/pet", {
         headers: {
           "Content-Type": "multipart/form-data", // Make sure to set the content type
         },
+        data: petFormData,
       })
       .then((response) => {
         if (response?.data?.status) {
@@ -72,7 +73,12 @@ const PetsForm = ({ type, setLocalStep, setLocalRefresh, data }) => {
 
   function getAllClients() {
     axios
-      .get(BACKENDURL + `/client/${email}`)
+      .get(BACKENDURL + `/client/${email}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      })
       .then((response) => {
         setAllClients(response?.data?.data);
         console.log(response, "all clients response");
@@ -109,6 +115,10 @@ const PetsForm = ({ type, setLocalStep, setLocalRefresh, data }) => {
   async function deleteImage() {
     try {
       let response = await axios.delete(BACKENDURL + `/pet/deleteImage`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
         data: { key: petsForm?.imageKey },
       });
       if (response?.data?.status) {

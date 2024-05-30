@@ -11,7 +11,7 @@ import AllTabs from "./Subtabs/AllTabs";
 
 const Pets = () => {
   const navigate = useNavigate();
-  const { email } = useContext(GlobalContext);
+  const { email, token } = useContext(GlobalContext);
 
   //local states
   const [allPets, setAllPets] = useState([]);
@@ -24,7 +24,12 @@ const Pets = () => {
 
   async function getAllPets() {
     try {
-      let response = await axios.get(BACKENDURL + `/pet/${email}`);
+      let response = await axios.get(BACKENDURL + `/pet/${email}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      });
 
       setAllPets(response?.data?.data);
     } catch (error) {
@@ -35,6 +40,10 @@ const Pets = () => {
   async function deleteImage() {
     try {
       let response = await axios.delete(BACKENDURL + `/pet/deleteImage`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
         data: { key: selectedPet?.imageKey },
       });
       if (response?.data?.status) {
@@ -53,7 +62,12 @@ const Pets = () => {
   async function deletePet(petID) {
     try {
       deleteImage();
-      let response = await axios.delete(BACKENDURL + `/pet/${petID}`);
+      let response = await axios.delete(BACKENDURL + `/pet/${petID}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      });
       if (response?.data?.status) {
         setLocalRefresh((prev) => !prev);
         Toastify(response?.data?.message, "success");

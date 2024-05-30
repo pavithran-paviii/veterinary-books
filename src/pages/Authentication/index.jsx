@@ -32,7 +32,7 @@ export default Authentication;
 
 export const Login = () => {
   const navigate = useNavigate();
-  const { setEmail } = useContext(GlobalContext);
+  const { setEmail, setToken } = useContext(GlobalContext);
   const [userCredentials, setUserCredentials] = useState({});
 
   async function loginUser() {
@@ -42,6 +42,8 @@ export const Login = () => {
         if (response?.data?.status) {
           Toastify(response?.data?.message, "success");
           setEmail(response?.data?.data[0]?.email);
+          setToken(response?.data?.token);
+          localStorage.setItem("VBtoken", response?.data?.token);
           localStorage.setItem("VBemail", response?.data?.data[0]?.email);
           localStorage.setItem(
             "VBrememberme",

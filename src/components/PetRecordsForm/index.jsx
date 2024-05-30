@@ -1,19 +1,27 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import classNames from "./petrecordsform.module.scss";
 import CustomInput, { CustomButton, Toastify } from "../Custom";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { BACKENDURL } from "../../assets/data/constant";
+import { GlobalContext } from "../../context/globalContext";
 
 const PetRecordsForm = () => {
   const navigate = useNavigate();
+  const { token } = useContext(GlobalContext);
   const [petsForm, setPetsForm] = useState({});
 
   //functions
 
   function createPetsForm() {
     axios
-      .post(BACKENDURL + "/records", petsForm)
+      .post(BACKENDURL + "/records", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+        data: petsForm,
+      })
       .then((response) => {
         if (response?.data?.status) {
           Toastify(response?.data?.message, "success");

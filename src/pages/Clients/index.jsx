@@ -18,7 +18,7 @@ moment.tz.setDefault("Asia/Kolkata");
 
 const Clients = () => {
   const navigate = useNavigate();
-  const { email } = useContext(GlobalContext);
+  const { email, token } = useContext(GlobalContext);
   const [searchQuery, setSearchQuery] = useState("");
   const [allClients, setAllClients] = useState([]);
   const [localRefresh, setLocalRefresh] = useState(false);
@@ -29,7 +29,12 @@ const Clients = () => {
 
   function getAllClients() {
     axios
-      .get(BACKENDURL + `/client/${email}`)
+      .get(BACKENDURL + `/client/${email}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      })
       .then((response) => {
         setAllClients(response?.data?.data);
         console.log(response, "all clients response");
@@ -50,7 +55,13 @@ const Clients = () => {
     nextRemainderForm.phoneNumber = nextRemainder;
     nextRemainderForm.refMail = email;
     axios
-      .put(BACKENDURL + "/client/update", nextRemainderForm)
+      .put(BACKENDURL + "/client/update", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+        data: nextRemainderForm,
+      })
       .then((response) => {
         setNextRemainder(false);
         if (response?.data?.status) {
@@ -75,7 +86,12 @@ const Clients = () => {
 
   async function deleteClient(clientID) {
     try {
-      let response = await axios.delete(BACKENDURL + `/client/${clientID}`);
+      let response = await axios.delete(BACKENDURL + `/client/${clientID}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      });
       if (response?.data?.status) {
         setLocalRefresh((prev) => !prev);
         Toastify(response?.data?.message, "success");

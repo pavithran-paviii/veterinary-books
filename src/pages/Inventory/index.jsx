@@ -10,7 +10,7 @@ import { MdDeleteOutline } from "react-icons/md";
 
 const Inventory = () => {
   const navigate = useNavigate();
-  const { email } = useContext(GlobalContext);
+  const { email, token } = useContext(GlobalContext);
   const [searchQuery, setSearchQuery] = useState("");
   const [allInventory, setAllInventory] = useState([]);
   const [selectedMedicine, setSelectedMedicine] = useState("");
@@ -21,7 +21,12 @@ const Inventory = () => {
 
   function getAllInventory() {
     axios
-      .get(BACKENDURL + `/inventory/${email}`)
+      .get(BACKENDURL + `/inventory/${email}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      })
       .then((response) => {
         setAllInventory(response?.data?.data);
         console.log(response, "all inventory response");
@@ -41,7 +46,13 @@ const Inventory = () => {
   function updateInventoryItem() {
     inventoryForm.medicineName = selectedMedicine;
     axios
-      .put(BACKENDURL + "/inventory/update", inventoryForm)
+      .put(BACKENDURL + "/inventory/update", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+        data: inventoryForm,
+      })
       .then((response) => {
         setIncreaseInventory(false);
         if (response?.data?.status) {
