@@ -21,7 +21,7 @@ const Inventory = () => {
 
   function getAllInventory() {
     axios
-      .get(BACKENDURL + `/inventory/${email}`, {
+      .get(BACKENDURL + `/inventory`, {
         headers: {
           Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",

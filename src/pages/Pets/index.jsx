@@ -24,7 +24,7 @@ const Pets = () => {
 
   async function getAllPets() {
     try {
-      let response = await axios.get(BACKENDURL + `/pet/${email}`, {
+      let response = await axios.get(BACKENDURL + `/pet`, {
         headers: {
           Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
@@ -61,7 +61,6 @@ const Pets = () => {
 
   async function deletePet(petID) {
     try {
-      deleteImage();
       let response = await axios.delete(BACKENDURL + `/pet/${petID}`, {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -69,14 +68,15 @@ const Pets = () => {
         },
       });
       if (response?.data?.status) {
+        await deleteImage();
         setLocalRefresh((prev) => !prev);
         Toastify(response?.data?.message, "success");
       } else {
         Toastify(response?.data?.message, "error");
       }
     } catch (error) {
-      Toastify(error?.message, "error");
-      console.log(error?.message, "Error while deleting client!");
+      Toastify(error?.response?.data?.message, "error");
+      console.log(error?.message, "Error while deleting pet!");
     }
   }
 

@@ -29,7 +29,7 @@ const Clients = () => {
 
   function getAllClients() {
     axios
-      .get(BACKENDURL + `/client/${email}`, {
+      .get(BACKENDURL + `/client`, {
         headers: {
           Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
@@ -99,6 +99,7 @@ const Clients = () => {
         Toastify(response?.data?.message, "error");
       }
     } catch (error) {
+      Toastify(error?.response?.data?.message, "error");
       console.log(error?.message, "Error while deleting client");
     }
   }

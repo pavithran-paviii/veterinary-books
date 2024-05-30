@@ -42,11 +42,11 @@ const PetsForm = ({ type, setLocalStep, setLocalRefresh, data }) => {
     console.log(petFormData);
 
     axios
-      .post(BACKENDURL + "/pet", {
+      .post(BACKENDURL + "/pet", petFormData, {
         headers: {
+          Authorization: `Bearer ${token}`,
           "Content-Type": "multipart/form-data", // Make sure to set the content type
         },
-        data: petFormData,
       })
       .then((response) => {
         if (response?.data?.status) {
@@ -73,7 +73,7 @@ const PetsForm = ({ type, setLocalStep, setLocalRefresh, data }) => {
 
   function getAllClients() {
     axios
-      .get(BACKENDURL + `/client/${email}`, {
+      .get(BACKENDURL + `/client`, {
         headers: {
           Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
