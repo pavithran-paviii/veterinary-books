@@ -14,6 +14,7 @@ import { FcGoogle } from "react-icons/fc";
 import axios from "axios";
 import { BACKENDURL } from "../../assets/data/constant";
 import { GlobalContext } from "../../context/globalContext";
+import { isLoginValid } from "../../assets/functions";
 
 const Authentication = ({ child }) => {
   return (
@@ -48,6 +49,8 @@ export const Login = () => {
           localStorage.setItem(
             "VBrememberme",
             userCredentials?.isPasswordRemember
+              ? userCredentials?.isPasswordRemember
+              : false
           );
           setTimeout(() => {
             navigate("/dashboard");
@@ -70,7 +73,11 @@ export const Login = () => {
   }
 
   useEffect(() => {
-    localStorage.clear();
+    if (localStorage.getItem("VBrememberme") === "true") {
+      checkLoginStatus(navigate);
+    } else {
+      localStorage.clear();
+    }
   }, []);
 
   return (
@@ -154,6 +161,10 @@ export const SignUp = () => {
     }
   }
 
+  useEffect(() => {
+    localStorage.clear();
+  }, []);
+
   return (
     <div className={classNames.login}>
       <div className={classNames.title}>Sign Up</div>
@@ -207,4 +218,14 @@ export const SignUp = () => {
       />
     </div>
   );
+};
+
+export const checkLoginStatus = async (navigate) => {
+  const isValid = await isLoginValid();
+  if (isValid) {
+    navigate("/dashboard");
+  } else {
+    localStorage.clear();
+    navigate("/signin");
+  }
 };
