@@ -15,13 +15,13 @@ const ClientForm = () => {
 
   function createClientForm() {
     clientForm.refMail = email;
+    console.log(`Bearer ${token}`, "Token is there!");
     axios
-      .post(BACKENDURL + "/client", {
+      .post(BACKENDURL + "/client", clientForm, {
         headers: {
           Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
         },
-        data: clientForm,
       })
       .then((response) => {
         if (response?.data?.status) {

@@ -31,7 +31,6 @@ const PetsForm = ({ type, setLocalStep, setLocalRefresh, data }) => {
 
   function createPetsForm() {
     setLocalLoading(true);
-    petsForm.refMail = email;
 
     const petFormData = new FormData();
 
@@ -240,18 +239,20 @@ const PetsForm = ({ type, setLocalStep, setLocalRefresh, data }) => {
           stateValue={petsForm}
           setState={setPetsForm}
         />
-        <CustomDropdown
-          dropdown={allClients}
-          name="owner"
-          title="Select Owner"
-          stateValue={petsForm}
-          setState={setPetsForm}
-          topTitle="true"
-          type="obj2Names"
-          stateVal={"_id"}
-          mapVal={{ name: "name", name1: "phoneNumber" }}
-          editable={type === "readOnly" ? false : true}
-        />
+        {type !== "readOnly" && (
+          <CustomDropdown
+            dropdown={allClients}
+            name="owner"
+            title="Select Owner"
+            stateValue={petsForm}
+            setState={setPetsForm}
+            topTitle="true"
+            type="obj2Names"
+            stateVal={"_id"}
+            mapVal={{ name: "name", name1: "phoneNumber" }}
+            editable={type === "readOnly" ? false : true}
+          />
+        )}
         {type === "readOnly" ? (
           ""
         ) : (
