@@ -37,28 +37,6 @@ const Pets = () => {
     }
   }
 
-  async function deleteImage() {
-    try {
-      let response = await axios.delete(BACKENDURL + `/pet/deleteImage`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
-        },
-        data: { key: selectedPet?.imageKey },
-      });
-      if (response?.data?.status) {
-        Toastify(response?.data?.message, "success");
-        setLocalStep("");
-        setLocalRefresh((prev) => !prev);
-      } else {
-        Toastify(response?.data?.message, "error");
-      }
-      console.log(response, "Deleted image from bucket!");
-    } catch (error) {
-      console.log(error?.message, "Delete image from bucket!");
-    }
-  }
-
   async function deletePet(petID) {
     try {
       let response = await axios.delete(BACKENDURL + `/pet/${petID}`, {
@@ -68,7 +46,6 @@ const Pets = () => {
         },
       });
       if (response?.data?.status) {
-        await deleteImage();
         setLocalRefresh((prev) => !prev);
         Toastify(response?.data?.message, "success");
       } else {
