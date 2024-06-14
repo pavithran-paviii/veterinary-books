@@ -482,3 +482,34 @@ export const CustomSelectOne = ({
     </div>
   );
 };
+
+export const CustomTextarea = ({
+  title,
+  placeHolder,
+  name,
+  type,
+  stateValue,
+  setState,
+}) => {
+  return (
+    <div className={classNames.customTextarea}>
+      <div className={classNames.title}>{title}</div>
+      <div className={classNames.inputContainer}>
+        <textarea
+          type="text"
+          placeholder={placeHolder}
+          value={name ? stateValue[name] : stateValue}
+          onChange={(event) => {
+            if (name) {
+              setState((prev) => {
+                return { ...prev, [name]: event?.target?.value };
+              });
+            } else {
+              setState(event?.target?.value);
+            }
+          }}
+        />
+      </div>
+    </div>
+  );
+};

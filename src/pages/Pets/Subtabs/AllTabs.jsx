@@ -1,13 +1,14 @@
 import React, { useState } from "react";
 import classNames from "./alltabs.module.scss";
 import PetsForm from "../../../components/PetsForm";
+import AddDiagnosis from "./AddDiagnosis";
 
 const AllTabs = ({ selectedPet, setLocalStep }) => {
   //constant
   const allSubTabs = ["Profile", "Medical records", "Vaccinations"];
 
   // states
-  const [selectedTab, setSelectedTab] = useState("Profile");
+  const [selectedTab, setSelectedTab] = useState("Medical records");
 
   return (
     <div className={classNames.allTabs}>
@@ -36,11 +37,17 @@ const AllTabs = ({ selectedPet, setLocalStep }) => {
         </div>
       </div>
       <div>
-        <PetsForm
-          type="readOnly"
-          data={selectedPet}
-          setLocalStep={setLocalStep}
-        />
+        {selectedTab === "Profile" ? (
+          <PetsForm
+            type="readOnly"
+            data={selectedPet}
+            setLocalStep={setLocalStep}
+          />
+        ) : selectedTab === "Medical records" ? (
+          <AddDiagnosis petID={selectedPet?._id} />
+        ) : (
+          ""
+        )}
       </div>
     </div>
   );

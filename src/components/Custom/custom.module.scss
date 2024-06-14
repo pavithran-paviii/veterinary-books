@@ -1,6 +1,7 @@
 @import "../../index.scss";
 
-.customInput {
+.customInput,
+.customTextarea {
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -14,7 +15,8 @@
     width: 100%;
     position: relative;
 
-    & > input {
+    & > input,
+    textarea {
       width: 100%;
       border: 1px solid $border-color;
       border-radius: 8px;
@@ -24,6 +26,13 @@
 
       &:focus {
         border: 1px solid black;
+      }
+    }
+
+    & > textarea {
+      max-width: 100%;
+      &::placeholder {
+        font-family: "Rubik", sans-serif;
       }
     }
 
