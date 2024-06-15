@@ -11,3 +11,10 @@ export const dashboardItems = [
   { name: "Pets", icon: <MdOutlinePets /> },
   { name: "Records", icon: <IoBookSharp /> },
 ];
+
+export const settingsNavigations = [
+  "General",
+  "Constant",
+  "Subscription",
+  "Support",
+];

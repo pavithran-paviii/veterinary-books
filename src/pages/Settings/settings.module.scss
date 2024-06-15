@@ -1,0 +1,141 @@
+@import "../../index.scss";
+
+.settings {
+  height: 100%;
+
+  & > .topSection {
+    height: 9rem;
+
+    & > .title {
+      font-size: 2rem;
+      padding: 2rem;
+      font-weight: 500;
+    }
+
+    & > .navigations {
+      border-bottom: 1px solid $border-color;
+      padding: 0 2rem;
+      display: flex;
+      gap: 1rem;
+
+      & > div {
+        font-size: 1rem;
+        padding: 0.6rem 1rem;
+        cursor: pointer;
+        font-weight: 410;
+        color: $light-text-color;
+      }
+
+      & > .selectedNav {
+        color: $primary-color;
+        border-bottom: 2px solid $primary-color;
+      }
+
+      //temp
+
+      & > :nth-child(3),
+      :last-child {
+        cursor: not-allowed;
+      }
+    }
+  }
+
+  & > .contentSection {
+    height: calc(100% - 9rem);
+    padding: 2rem;
+  }
+}
+
+.profileSection {
+  & > .header {
+    padding-bottom: 1.2rem;
+    border-bottom: 1px solid $border-color;
+
+    & > .title {
+      font-size: 1.2rem;
+      font-weight: 500;
+      margin: 0.5rem 0;
+    }
+
+    & > .desc {
+      color: $light-text-color;
+    }
+  }
+
+  & > .allDetails {
+    pointer-events: none;
+    display: flex;
+    flex-direction: column;
+
+    & > div {
+      padding: 1.5rem 0;
+      border-bottom: 1px solid $border-color;
+      flex-direction: row;
+      align-items: center;
+
+      & > :nth-child(1) {
+        width: 300px;
+      }
+
+      input,
+      textarea {
+        max-width: 400px;
+        border-radius: 8px;
+      }
+    }
+
+    & > :last-child {
+      border: none;
+    }
+  }
+}
+
+.addConstants {
+  & > .header {
+    padding-bottom: 1.2rem;
+    border-bottom: 1px solid $border-color;
+
+    & > .title {
+      font-size: 1.2rem;
+      font-weight: 500;
+      margin: 0.5rem 0;
+    }
+
+    & > .desc {
+      color: $light-text-color;
+    }
+  }
+
+  & > .allDetails {
+    display: flex;
+    flex-direction: column;
+
+    & > div {
+      padding: 1.5rem 0;
+      border-bottom: 1px solid $border-color;
+      flex-direction: row;
+      align-items: center;
+    }
+
+    & > :last-child {
+      border: none;
+    }
+
+    & > .eachDiagnosisContainer {
+      & > .newDiagnosisContainer {
+        margin-top: 1rem;
+        max-width: 300px;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+
+        button {
+          height: max-content;
+          font-size: 0.8rem;
+          margin-top: 10px;
+          padding: 0.9rem 2rem;
+        }
+      }
+    }
+  }
+}

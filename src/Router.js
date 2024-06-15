@@ -15,6 +15,7 @@ import Pets from "./pages/Pets";
 import PetRecordsForm from "./components/PetRecordsForm";
 import Inventory from "./pages/Inventory";
 import InventoryForm from "./components/InventoryForm";
+import Settings from "./pages/Settings";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -22,6 +23,10 @@ const router = createBrowserRouter(
       <Route path="" element={<Home />} />
       <Route path="signin" element={<Authentication child={<Login />} />} />
       <Route path="signup" element={<Authentication child={<SignUp />} />} />
+      <Route
+        path="settings"
+        element={<DashboardLayout child={<Settings />} />}
+      />
       <Route path="dashboard" element={<DashboardLayout child="" />} />
       <Route path="inventory" element={<DashboardLayout child="" />} />
       <Route path="clients/">

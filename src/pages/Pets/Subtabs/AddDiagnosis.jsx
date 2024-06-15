@@ -248,7 +248,11 @@ const EachDiagnosis = ({
   );
 };
 
-const EachDiagnosisView = ({ allUserDiagnosis, diagnosisType, title }) => {
+export const EachDiagnosisView = ({
+  allUserDiagnosis,
+  diagnosisType,
+  title,
+}) => {
   return (
     <div
       className={classNames.addDiagnosisForm}
