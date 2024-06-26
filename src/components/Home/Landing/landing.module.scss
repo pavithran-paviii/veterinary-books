@@ -43,7 +43,7 @@
           height: 100%;
           left: 62.5%;
           width: 100px;
-          color: $gray-text-color;
+          color: var(--gray-text-color);
           cursor: pointer;
 
           &:hover {

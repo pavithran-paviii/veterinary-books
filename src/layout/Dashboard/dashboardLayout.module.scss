@@ -2,56 +2,90 @@
 
 .dashboardLayout {
   display: flex;
-  background: $primary-color;
+  background: var(--primary-color);
 
   & > .leftSidebar {
     min-width: 200px;
     max-width: 300px;
     width: 30%;
-    padding: 2rem;
+    padding: 0 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 
-    & > .logo {
-      display: flex;
-      justify-items: flex-start;
+    & > .dashItems {
+      padding: 1rem;
+      padding-bottom: 1.5rem;
+      background: var(--secondary-color);
+      border-radius: 0 0 12px 12px;
+      // height: calc(100% - 14rem);
 
-      & > img {
-        max-width: 100%;
-        height: 4rem;
-        translate: -15px;
+      & > .logo {
+        display: flex;
+        justify-items: flex-start;
+
+        & > img {
+          max-width: 100%;
+          height: 4rem;
+          translate: -15px;
+        }
+      }
+
+      & > .dashItems {
+        margin-top: 1rem;
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+        // height: calc(100% - 6.5rem);
+
+        & > .selectedItem {
+          color: white;
+
+          & > :nth-child(1) {
+            background: white;
+            border: 1px solid white;
+
+            & > svg {
+              color: var(--primary-color);
+            }
+          }
+        }
+
+        & > .otherItems {
+          border-top: 1px solid var(--gray-text-color);
+          padding: 0.5rem 0;
+          padding-top: 1.7rem;
+        }
+
+        & > .logoutBtn {
+          margin-top: auto;
+          transition: all linear 0.3s;
+
+          &:hover {
+            color: white;
+            text-decoration: underline;
+          }
+        }
       }
     }
 
-    & > .dashItems {
-      margin-top: 2.5rem;
+    & > .settingsMenu {
+      border-radius: 12px 12px 0px 0px;
+      margin-top: 1rem;
+      // height: 14rem;
+      padding: 1rem;
+      padding-bottom: 1.5rem;
+      background: var(--secondary-color);
+      height: -webkit-fill-available;
       display: flex;
       flex-direction: column;
-      gap: 1.5rem;
-      height: calc(100% - 6.5rem);
-
-      & > .sidebarItem {
-        cursor: pointer;
-        color: #949393;
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        font-weight: 400;
-        font-size: 1rem;
-        padding: 0.5rem 0;
-        transition: all linear 0.3s;
-      }
-
-      & > .selectedItem {
-        color: white;
-      }
 
       & > .otherItems {
-        border-top: 1px solid #949393;
         padding: 0.5rem 0;
-        padding-top: 1.7rem;
       }
 
       & > .logoutBtn {
-        margin-top: auto;
+        margin-top: 0.6rem;
         transition: all linear 0.3s;
 
         &:hover {
@@ -59,11 +93,72 @@
           text-decoration: underline;
         }
       }
+
+      & > .needHelp {
+        background: var(--primary-color);
+        padding: 0.5rem;
+        margin: 1rem 0;
+        border-radius: 7px;
+        display: flex;
+        flex-direction: column;
+        gap: 0.7rem;
+        justify-content: center;
+        align-items: center;
+        color: var(--gray-text-color);
+
+        & > .title {
+          font-size: 1rem;
+          font-weight: 520;
+        }
+
+        & > .desc {
+          font-size: 0.9rem;
+          text-align: center;
+        }
+
+        & > .submitBtn {
+          padding: 6px 1rem;
+          width: max-content;
+          border-radius: 35px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          background: var(--secondary-color);
+          cursor: pointer;
+        }
+      }
+    }
+
+    .sidebarItem {
+      cursor: pointer;
+      color: var(--gray-text-color);
+      display: flex;
+      align-items: center;
+      gap: 13px;
+      font-weight: 400;
+      font-size: 1rem;
+      padding: 0.5rem 0;
+      transition: all linear 0.3s;
+
+      & > :nth-child(1) {
+        border: 1px solid;
+        border-radius: 50%;
+        padding: 0.5rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: var(--primary-color);
+        border: 1px solid var(--primary-color);
+
+        & > svg {
+          color: var(--gray-text-color);
+        }
+      }
     }
   }
 
   & > .rightLayout {
-    background: white;
+    // background: white;
     width: -webkit-fill-available;
   }
 }

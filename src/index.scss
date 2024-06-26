@@ -10,12 +10,12 @@
 
 :root {
   // this is the default value below
-  --toastify-color-progress-light: $primary-color;
+  --toastify-color-progress-light: var(--primary-color);
 }
 
 body {
   font-family: "Rubik", sans-serif;
-  color: $text-color;
+  color: var(--text-color);
   scrollbar-width: none;
 }
 
@@ -49,4 +49,29 @@ h5 {
 
 a {
   all: unset;
+}
+
+// Map SCSS variables to CSS variables
+:root {
+  --primary-color: #{$dark-primary-color};
+  --secondary-color: #{$secondary-color};
+  --bg-color: #{$light-bg-color};
+  --text-color: #{$text-color};
+  --text-blue: #{$text-blue};
+  --gray-text-color: #{$gray-text-color};
+  --light-text-color: #{$light-text-color};
+  --border-color: #{$border-color};
+  --primary-red: #{$primary-red};
+}
+
+[data-theme="dark"] {
+  --primary-color: #1e2022;
+  --secondary-color: #34373b;
+  --bg-color: #{$primary-color}; // You can change this as needed
+  --text-color: #{$light-text-color};
+  --text-blue: #{$text-blue}; // You can change this as needed
+  --gray-text-color: #{#a8b3bc};
+  --light-text-color: #{#a8b3bc};
+  --border-color: #{$border-color};
+  --primary-red: #{$primary-red}; // You can change this as needed
 }

@@ -20,7 +20,8 @@
     height: 135vh;
     border-radius: 50%;
     border: none;
-    box-shadow: 0 0 80px $primary-color inset, inset 0 0 80px $primary-color;
+    box-shadow: 0 0 80px var(--primary-color) inset,
+      inset 0 0 80px var(--primary-color);
     animation: pulse 2s linear infinite alternate;
     position: absolute;
     top: 40%;
@@ -35,7 +36,7 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    color: $gray-text-color;
+    color: var(--gray-text-color);
 
     & > h2 {
       margin-bottom: 1.5rem;
@@ -54,12 +55,13 @@
 
 @keyframes pulse {
   0% {
-    box-shadow: 0 0 40px $primary-color, inset 0 0 40px $seconday-color;
+    box-shadow: 0 0 40px var(--primary-color),
+      inset 0 0 40px var(--secondary-color);
   }
   50% {
-    box-shadow: 0 0 64px $seconday-color, inset 0 0 34px $light-bg-color;
+    box-shadow: 0 0 64px var(--secondary-color), inset 0 0 34px var(--bg-color);
   }
   100% {
-    box-shadow: 0 0 34px $light-bg-color, inset 0 0 60px $primary-color;
+    box-shadow: 0 0 34px var(--bg-color), inset 0 0 60px var(--primary-color);
   }
 }

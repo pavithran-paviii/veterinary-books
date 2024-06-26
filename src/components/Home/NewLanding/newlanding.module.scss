@@ -4,7 +4,7 @@
   position: relative;
   padding: 1.5rem 0;
   overflow: hidden;
-  background: $primary-color;
+  background: var(--primary-color);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -59,12 +59,12 @@
         }
 
         & > .getStarted {
-          background: $light-bg-color;
+          background: var(--bg-color);
           padding: 1.2rem 2rem;
           border-radius: 35px;
           font-size: 0.9rem;
           cursor: pointer;
-          color: $text-color;
+          color: var(--text-color);
           font-weight: 600;
           outline: none;
           width: max-content;
@@ -141,7 +141,7 @@
           }
 
           & > .selectedDiv {
-            background: $primary-color;
+            background: var(--primary-color);
             color: white;
             position: relative;
             cursor: pointer;
@@ -156,7 +156,7 @@
 
     & > .rightContainer {
       width: 50%;
-      background: $primary-color;
+      background: var(--primary-color);
       border-radius: 2rem;
       position: relative;
 
@@ -169,7 +169,7 @@
         padding: 1rem;
 
         & > .loginButton {
-          background: $primary-color;
+          background: var(--primary-color);
           color: white;
           //   position: absolute;
           z-index: 2;

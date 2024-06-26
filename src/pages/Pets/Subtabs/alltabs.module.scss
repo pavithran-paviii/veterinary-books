@@ -2,7 +2,7 @@
 
 .allTabs {
   padding: 1.5rem 0.25rem;
-  border: 1px solid $border-color;
+  border: 1px solid var(--border-color);
   border-radius: 6px;
   margin-bottom: 1rem;
   padding-top: 1rem;
@@ -12,7 +12,7 @@
     align-items: center;
     gap: 1rem;
     padding-bottom: 1rem;
-    border-bottom: 1px solid $border-color;
+    border-bottom: 1px solid var(--border-color);
 
     & > div {
       padding: 0.6rem 1.5rem;
@@ -22,7 +22,7 @@
 
     & > .selectedTab {
       color: white;
-      background: $primary-color;
+      background: var(--primary-color);
     }
 
     & > .mainBtns {
@@ -40,11 +40,11 @@
         color: white;
         border: none;
         outline: none;
-        background: $primary-color;
+        background: var(--primary-color);
       }
 
       & > :nth-child(2) {
-        background: $primary-red;
+        background: var(--primary-red);
       }
     }
   }

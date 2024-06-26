@@ -36,7 +36,7 @@
       padding: 0 2.5rem;
 
       div {
-        border: 0.5px solid $border-color;
+        border: 0.5px solid var(--border-color);
         width: 30%;
         aspect-ratio: 1/0.7;
         text-align: center;
@@ -66,12 +66,12 @@
         padding-bottom: 0;
 
         & > h2 {
-          color: $text-blue;
+          color: var(--text-blue);
         }
 
         & > div {
           &:hover {
-            background: $primary-color;
+            background: var(--primary-color);
             color: white;
           }
         }
@@ -88,7 +88,7 @@
 
         & > div {
           &:hover {
-            background: $primary-color;
+            background: var(--primary-color);
             color: white;
           }
         }
