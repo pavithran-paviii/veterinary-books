@@ -62,6 +62,7 @@ a {
   --light-text-color: #{$light-text-color};
   --border-color: #{$border-color};
   --primary-red: #{$primary-red};
+  --highlight-color: #{$dark-primary-color};
 }
 
 [data-theme="dark"] {
@@ -74,4 +75,5 @@ a {
   --light-text-color: #{#a8b3bc};
   --border-color: #{$border-color};
   --primary-red: #{$primary-red}; // You can change this as needed
+  --highlight-color: #b7d31e;
 }

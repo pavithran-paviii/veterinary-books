@@ -2,7 +2,8 @@ import React, { useEffect, useRef } from "react";
 import classNames from "./newlanding.module.scss";
 
 //assets
-import fullLogo from "../../../assets/images/Veterinary.png";
+// import fullLogo from "../../../assets/images/Veterinary.svg";
+import { ReactComponent as FullLogo } from "../../../assets/images/Veterinary.svg";
 import { FaArrowRight } from "react-icons/fa6";
 import { TiTickOutline } from "react-icons/ti";
 import { LiaDotCircleSolid } from "react-icons/lia";
@@ -39,7 +40,8 @@ const NewLanding = ({ newLandingVisible, setNewLandingVisible }) => {
     <section className={classNames.landing} ref={sectionRef}>
       <div className={classNames.wrapper}>
         <div className={classNames.leftContainer}>
-          <img src={fullLogo} alt="fullLogo" />
+          {/* <img src={fullLogo} alt="fullLogo" /> */}
+          <FullLogo />
           <div>
             <h2>ONE STOP FOR ALL YOUR PET'S RECORDS</h2>
             <h5>Create an account & manage the medical records</h5>

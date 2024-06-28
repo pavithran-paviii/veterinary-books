@@ -155,6 +155,22 @@
         }
       }
     }
+
+    .UISwitch {
+      width: 100%;
+      padding: 0.7rem 1.5rem;
+      font-weight: 400;
+      font-size: 0.9rem;
+      background: var(--highlight-color);
+      border-radius: 35px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      gap: 15px;
+      color: white;
+      margin-top: auto;
+    }
   }
 
   & > .rightLayout {

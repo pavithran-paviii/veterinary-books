@@ -11,6 +11,8 @@ import { IoLogOut } from "react-icons/io5";
 import useWindowSize from "../../hooks/useWindowSize";
 import { MaterialUISwitch } from "../../components/MUI";
 import { useTheme } from "../../context/ThemeContext";
+import { FaRegMoon } from "react-icons/fa";
+import { FiSun } from "react-icons/fi";
 
 const DashboardLayout = ({ child }) => {
   const navigate = useNavigate();
@@ -87,13 +89,30 @@ const DashboardLayout = ({ child }) => {
             Logout
           </div>
           {height > 700 && height > 500 && (
-            <MaterialUISwitch
-              sx={{ width: 60, margin: "0 auto" }}
-              checked={theme === "dark" ? true : false}
-              onChange={handleModeChange}
-            />
+            // <MaterialUISwitch
+            //   sx={{ width: 60, margin: "0 auto" }}
+            //   checked={theme === "dark" ? true : false}
+            //   onChange={handleModeChange}
+            // />
+            <div
+              className={classNames.UISwitch}
+              style={{ marginBottom: height > 900 ? "2rem" : "0" }}
+              onClick={handleModeChange}
+            >
+              {theme === "dark" ? (
+                <>
+                  <span>Dark Theme</span>
+                  <FaRegMoon />
+                </>
+              ) : (
+                <>
+                  <span>Light Theme</span>
+                  <FiSun />
+                </>
+              )}
+            </div>
           )}
-          {height > 750 && (
+          {height > 900 && (
             <div className={classNames.needHelp}>
               <div className={classNames.title}>Need help?</div>
               <div className={classNames.desc}>

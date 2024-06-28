@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import classNames from "./navbar.module.scss";
 
 //assets
-import fullLogo from "../../assets/images/Veterinary.svg";
+// import fullLogo from "../../assets/images/Veterinary.svg";
 import { ReactComponent as FullLogo } from "../../assets/images/fullLogo.svg";
 
 const Navbar = ({ isAppearing }) => {
@@ -15,7 +15,8 @@ const Navbar = ({ isAppearing }) => {
     >
       <div className={classNames.wrapper}>
         <div className={classNames.logo}>
-          <img src={fullLogo} alt="fullLogo" />
+          {/* <img src={fullLogo} alt="fullLogo" /> */}
+          <FullLogo />
         </div>
         <div className={classNames.navigations}>
           <div>

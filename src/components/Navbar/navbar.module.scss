@@ -27,8 +27,10 @@
     }
 
     & > .logo {
-      & > img {
+      & > img,
+      svg {
         height: 50%;
+        width: max-content;
       }
     }
 
