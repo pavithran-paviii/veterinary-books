@@ -4,10 +4,11 @@
   position: relative;
   padding: 1.5rem 0;
   overflow: hidden;
-  background: var(--primary-color);
+  background: #00598e;
   display: flex;
   justify-content: center;
   align-items: center;
+  color: #141414;
 
   & > .wrapper {
     max-width: 1440px;
@@ -41,7 +42,7 @@
 
     & > .rightContainer {
       width: 50%;
-      background: var(--primary-color);
+      // background: var(--primary-color);
       border-radius: 2rem;
       position: relative;
       overflow: scroll;

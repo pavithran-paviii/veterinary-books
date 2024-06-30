@@ -4,10 +4,11 @@
   position: relative;
   padding: 1.5rem 0;
   overflow: hidden;
-  background: var(--primary-color);
+  background: #00598e;
   display: flex;
   justify-content: center;
   align-items: center;
+  color: #141414;
 
   & > .wrapper {
     max-width: 1440px;
@@ -61,14 +62,14 @@
         }
 
         & > .getStarted {
-          background: var(--secondary-color);
+          background: #4b90be;
           padding: 1.2rem 2rem;
           border-radius: 35px;
           font-size: 0.9rem;
           cursor: pointer;
           color: white;
           width: max-content;
-          border: 1px solid var(--primary-color);
+          border: 1px solid #4b90be;
           box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px,
             rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
           display: flex;
@@ -141,7 +142,7 @@
           }
 
           & > .selectedDiv {
-            background: var(--primary-color);
+            background: #00598e;
             color: white;
             position: relative;
             cursor: pointer;
@@ -156,7 +157,7 @@
 
     & > .rightContainer {
       width: 50%;
-      background: var(--primary-color);
+      background: #00598e;
       border-radius: 2rem;
       position: relative;
 
@@ -169,7 +170,7 @@
         padding: 1rem;
 
         & > .loginButton {
-          background: var(--secondary-color);
+          background: #4b90be;
           color: white;
           //   position: absolute;
           z-index: 2;
@@ -178,7 +179,7 @@
           padding: 0.9rem 1.5rem;
           letter-spacing: 2px;
           border-radius: 1.5rem;
-          border: 5px solid var(--primary-color);
+          border: 5px solid #4b90be;
           cursor: pointer;
           font-size: 0.9rem;
           display: block;
