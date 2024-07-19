@@ -18,8 +18,8 @@ moment.tz.setDefault("Asia/Kolkata");
 
 const Clients = () => {
   const navigate = useNavigate();
-  const { email, token } = useContext(GlobalContext);
-  const [searchQuery, setSearchQuery] = useState("");
+  const { email, token, searchQuery, setSearchQuery } =
+    useContext(GlobalContext);
   const [allClients, setAllClients] = useState([]);
   const [localRefresh, setLocalRefresh] = useState(false);
   const [nextRemainder, setNextRemainder] = useState("");
@@ -111,12 +111,12 @@ const Clients = () => {
   return (
     <div className={classNames.client}>
       <div className={classNames.topBar}>
-        <input
+        {/* <input
           type="text"
           className={classNames.searchOption}
           placeholder="Search client..."
           onChange={(event) => setSearchQuery(event?.target?.value)}
-        />
+        /> */}
         <button
           className={classNames.addClient}
           onClick={() => {

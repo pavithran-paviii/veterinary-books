@@ -10,8 +10,8 @@ import { MdDeleteOutline } from "react-icons/md";
 
 const Inventory = () => {
   const navigate = useNavigate();
-  const { email, token } = useContext(GlobalContext);
-  const [searchQuery, setSearchQuery] = useState("");
+  const { email, token, searchQuery, setSearchQuery } =
+    useContext(GlobalContext);
   const [allInventory, setAllInventory] = useState([]);
   const [selectedMedicine, setSelectedMedicine] = useState("");
   const [increaseInventory, setIncreaseInventory] = useState(false);
@@ -99,14 +99,14 @@ const Inventory = () => {
         </div>
       </div>
       <div className={classNames.topBar}>
-        <div className={classNames.detailedSearch}>
+        {/* <div className={classNames.detailedSearch}>
           <input
             type="text"
             className={classNames.searchOption}
             placeholder="Search inventory..."
             onChange={(event) => setSearchQuery(event?.target?.value)}
           />
-        </div>
+        </div> */}
         <button
           className={classNames.addinventory}
           onClick={() => {

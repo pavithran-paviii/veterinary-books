@@ -7,6 +7,7 @@ const GlobalContextProvider = ({ children }) => {
   const [email, setEmail] = useState("" || localStorage.getItem("VBemail"));
   const [token, setToken] = useState("" || localStorage.getItem("VBtoken"));
   const [userDetails, setUserDetails] = useState({});
+  const [searchQuery, setSearchQuery] = useState("");
 
   //renderings
 
@@ -18,7 +19,16 @@ const GlobalContextProvider = ({ children }) => {
 
   return (
     <GlobalContext.Provider
-      value={{ email, setEmail, token, setToken, userDetails, setUserDetails }}
+      value={{
+        email,
+        setEmail,
+        token,
+        setToken,
+        userDetails,
+        setUserDetails,
+        searchQuery,
+        setSearchQuery,
+      }}
     >
       {children}
     </GlobalContext.Provider>

@@ -184,5 +184,10 @@
   & > .rightLayout {
     // background: white;
     width: -webkit-fill-available;
+
+    & > .content {
+      height: calc(100% - 5rem);
+      overflow-y: scroll;
+    }
   }
 }

@@ -11,12 +11,12 @@ import AllTabs from "./Subtabs/AllTabs";
 
 const Pets = () => {
   const navigate = useNavigate();
-  const { email, token } = useContext(GlobalContext);
+  const { email, token, searchQuery, setSearchQuery } =
+    useContext(GlobalContext);
 
   //local states
   const [allPets, setAllPets] = useState([]);
   const [localRefresh, setLocalRefresh] = useState(false);
-  const [searchQuery, setSearchQuery] = useState("");
   const [localStep, setLocalStep] = useState("");
   const [selectedPet, setSelectedPet] = useState("");
 
@@ -71,13 +71,6 @@ const Pets = () => {
       ) : (
         <>
           <div className={classNames.topBar}>
-            <input
-              type="text"
-              className={classNames.searchOption}
-              placeholder="Search pets..."
-              value={searchQuery}
-              onChange={(event) => setSearchQuery(event?.target?.value)}
-            />
             <button
               className={classNames.addClient}
               onClick={() => {

@@ -1,0 +1,68 @@
+.dashboardNav {
+  height: 3.8rem;
+  width: calc(100% - 4rem);
+  margin: 0.6rem auto;
+  background: var(--primary-color);
+  border-radius: 12px;
+  padding: 0.7rem 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: white;
+
+  & > .searchContainer {
+    position: relative;
+    height: 100%;
+
+    & > svg {
+      font-size: 1.4rem;
+      position: absolute;
+      top: 50%;
+      left: 0.5rem;
+      transform: translate(0, -50%);
+      cursor: pointer;
+    }
+
+    & > input {
+      height: 100%;
+      background: transparent;
+      outline: none;
+      border: none;
+      height: 100%;
+      padding-left: 2.5rem;
+      border-radius: 8px;
+      width: 0%;
+      transition: all linear 0.3s;
+      color: white;
+    }
+  }
+
+  & > .containerOpen {
+    & > input {
+      width: 300px;
+      border: 1px solid white;
+    }
+  }
+
+  & > .settingsContainer {
+    display: flex;
+    gap: 1.25rem;
+    align-items: center;
+
+    & > svg {
+      color: white;
+      font-size: 1.9rem;
+      cursor: pointer;
+    }
+
+    & > .profileImage {
+      height: 2.5rem;
+      width: 2.5rem;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border: 1px solid white;
+    }
+  }
+}

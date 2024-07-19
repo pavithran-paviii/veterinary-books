@@ -2,18 +2,17 @@ import React, { useContext } from "react";
 import classNames from "./dashboardLayout.module.scss";
 
 //assets
-import logoWhite from "../../assets/images/veterinarylogowhite.svg";
 import { dashboardItems } from "../../assets/data/mapItems";
 import { IoIosSettings } from "react-icons/io";
 import { Navigate, useLocation, useNavigate } from "react-router-dom";
 import { GlobalContext } from "../../context/globalContext";
 import { IoLogOut } from "react-icons/io5";
 import useWindowSize from "../../hooks/useWindowSize";
-import { MaterialUISwitch } from "../../components/MUI";
 import { useTheme } from "../../context/ThemeContext";
 import { FaRegMoon } from "react-icons/fa";
 import { FiSun } from "react-icons/fi";
 import { capitalizeFirstLetter } from "../../assets/functions";
+import DashboardNavbar from "../../components/DashboardNavbar";
 
 const DashboardLayout = ({ child }) => {
   const navigate = useNavigate();
@@ -36,6 +35,7 @@ const DashboardLayout = ({ child }) => {
   if (!email) {
     return <Navigate to="/signin" />;
   }
+
   return (
     <section
       className={classNames.dashboardLayout}
@@ -131,7 +131,10 @@ const DashboardLayout = ({ child }) => {
           )}
         </div>
       </div>
-      <div className={classNames.rightLayout}>{child}</div>
+      <div className={classNames.rightLayout}>
+        <DashboardNavbar />
+        <div className={classNames.content}>{child}</div>
+      </div>
     </section>
   );
 };

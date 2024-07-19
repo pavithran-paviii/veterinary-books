@@ -1,21 +1,15 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import classNames from "./petrecords.module.scss";
 import { useNavigate } from "react-router-dom";
+import { GlobalContext } from "../../context/globalContext";
 
 const PetRecords = () => {
   const navigate = useNavigate();
-  const [searchQuery, setSearchQuery] = useState("");
+  const { searchQuery, setSearchQuery } = useContext(GlobalContext);
 
   return (
     <div className={classNames.client}>
       <div className={classNames.topBar}>
-        <input
-          type="text"
-          className={classNames.searchOption}
-          placeholder="Search records..."
-          value={searchQuery}
-          onChange={(event) => setSearchQuery(event?.target?.value)}
-        />
         <button
           className={classNames.addClient}
           onClick={() => {
