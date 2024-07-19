@@ -7,6 +7,7 @@ import { BACKENDURL } from "../../assets/data/constant";
 import { GlobalContext } from "../../context/globalContext";
 import { CiEdit } from "react-icons/ci";
 import { MdDeleteOutline } from "react-icons/md";
+import { FaCirclePlus, FaCircleMinus } from "react-icons/fa6";
 
 const Inventory = () => {
   const navigate = useNavigate();
@@ -16,6 +17,7 @@ const Inventory = () => {
   const [selectedMedicine, setSelectedMedicine] = useState("");
   const [increaseInventory, setIncreaseInventory] = useState(false);
   const [inventoryForm, setInventoryForm] = useState(false);
+  const [cartItems, setCartItems] = useState([]);
 
   //functions
 
@@ -81,159 +83,165 @@ const Inventory = () => {
 
   return (
     <div className={classNames.inventory}>
-      <div className={classNames.miniOverview}>
-        <div>
-          <div className={classNames.title}>Total Stocks</div>
-          <div className={classNames.stockItems}>150 Items</div>
-          <div className={classNames.stockValue}>₹ 2,00,000</div>
+      <div className={classNames.productsContainer}>
+        <div className={classNames.topBar}>
+          <button
+            className={classNames.addinventory}
+            onClick={() => {
+              navigate("/inventory/create");
+            }}
+          >
+            Add inventory
+          </button>
         </div>
-        <div>
-          <div className={classNames.title}>Inventory Stocks</div>
-          <div className={classNames.stockItems}>96 Items</div>
-          <div className={classNames.stockValue}>₹ 1,43,000</div>
+        <div className={classNames.allProducts}>
+          {Array.isArray(allInventory) &&
+            allInventory?.length > 0 &&
+            allInventory
+              ?.filter((eachinventory) => {
+                let searchText = searchQuery?.toLowerCase();
+                return eachinventory?.medicineName
+                  ?.toLowerCase()
+                  ?.includes(searchText);
+              })
+              ?.map((eachProduct) => {
+                return (
+                  <div
+                    className={classNames.eachProduct}
+                    key={eachProduct?._id}
+                  >
+                    <div className={classNames.detailsContainer}>
+                      <div className={classNames.imageContainer}>
+                        {eachProduct?.medicineName?.charAt(0)}
+                      </div>
+                      <div className={classNames.details}>
+                        <div className={classNames.name}>
+                          {eachProduct?.medicineName}
+                        </div>
+                        <div className={classNames.price}>
+                          <span>₹ {eachProduct?.retailPrice}</span>
+                          <span>₹ {eachProduct?.mrp}</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div className={classNames.controlBtns}>
+                      <FaCircleMinus />
+                      <input type="text" placeholder="0" />
+                      <FaCirclePlus />
+                    </div>
+                  </div>
+                );
+              })}
         </div>
-        <div>
-          <div className={classNames.title}>Upcoming Stocks</div>
-          <div className={classNames.stockItems}>54 Items</div>
-          <div className={classNames.stockValue}>₹ 57,000</div>
-        </div>
-      </div>
-      <div className={classNames.topBar}>
-        {/* <div className={classNames.detailedSearch}>
-          <input
-            type="text"
-            className={classNames.searchOption}
-            placeholder="Search inventory..."
-            onChange={(event) => setSearchQuery(event?.target?.value)}
-          />
-        </div> */}
-        <button
-          className={classNames.addinventory}
-          onClick={() => {
-            navigate("/inventory/create");
-          }}
+        {/* <div
+          className={classNames.tableContainer}
+          style={{ display: allInventory?.length > 0 ? "" : "none" }}
         >
-          Add inventory
-        </button>
-      </div>
-      <div
-        className={classNames.tableContainer}
-        style={{ display: allInventory?.length > 0 ? "" : "none" }}
-      >
-        <table>
-          <thead>
-            <tr>
-              <th>Medicine Name</th>
-              <th>Quantity</th>
-              <th>Price</th>
-              <th>Description</th>
-              <th></th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody>
-            {allInventory?.length > 0 &&
-              allInventory
-                ?.filter((eachinventory) => {
-                  let searchText = searchQuery?.toLowerCase();
-                  return eachinventory?.medicineName?.includes(searchText);
-                })
-                .map((eachItem, index) => {
-                  return (
-                    <tr key={eachItem?.name + index}>
-                      <td>{eachItem?.medicineName}</td>
-                      <td>{eachItem?.quantity}</td>
-                      <td>{eachItem?.price ? `₹ ${eachItem?.price}` : "-"}</td>
-                      <td>{eachItem?.description}</td>
-                      <td>
-                        <CiEdit
-                          onClick={() => {
-                            setSelectedMedicine(eachItem?.medicineName);
-                            setIncreaseInventory([]);
-                          }}
-                        />
-                      </td>
-                      <td>
-                        <MdDeleteOutline />
-                      </td>
-                    </tr>
-                  );
-                })}
-          </tbody>
-        </table>
-      </div>
-      {increaseInventory ? (
-        <div className={classNames.increaseInventory}>
-          <div
-            className={classNames.overlayContainer}
-            onClick={() => setIncreaseInventory(false)}
-          ></div>
-          <div className={classNames.increaseContainer}>
-            <div className={classNames.title}>{selectedMedicine}</div>
-            <div className={classNames.inventoryFields}>
-              <CustomInput
-                title="Quantity"
-                placeHolder="Enter quantity..."
-                name="quantity"
-                type="number"
-                stateValue={inventoryForm}
-                setState={setInventoryForm}
-              />
-              <CustomInput
-                title="Pic"
-                placeHolder="Enter pic link..."
-                name="pic"
-                stateValue={inventoryForm}
-                setState={setInventoryForm}
-              />
-              <CustomInput
-                title="Description"
-                placeHolder="Enter description..."
-                name="description"
-                stateValue={inventoryForm}
-                setState={setInventoryForm}
-              />
-              <CustomInput
-                title="MRP"
-                placeHolder="Enter MRP..."
-                name="mrp"
-                type="number"
-                stateValue={inventoryForm}
-                setState={setInventoryForm}
-              />
-              <CustomInput
-                title="Price"
-                placeHolder="Enter price..."
-                name="price"
-                type="number"
-                stateValue={inventoryForm}
-                setState={setInventoryForm}
-              />
-              <CustomButton
-                buttonText="Update Inventory"
-                bg="#00638e"
-                color="white"
-                func={updateInventoryItem}
-              />
+          <table>
+            <thead>
+              <tr>
+                <th>Medicine Name</th>
+                <th>Quantity</th>
+                <th>Price</th>
+                <th>Description</th>
+                <th></th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              {allInventory?.length > 0 &&
+                allInventory
+                  ?.filter((eachinventory) => {
+                    let searchText = searchQuery?.toLowerCase();
+                    return eachinventory?.medicineName?.includes(searchText);
+                  })
+                  .map((eachItem, index) => {
+                    return (
+                      <tr key={eachItem?.name + index}>
+                        <td>{eachItem?.medicineName}</td>
+                        <td>{eachItem?.quantity}</td>
+                        <td>
+                          {eachItem?.price ? `₹ ${eachItem?.price}` : "-"}
+                        </td>
+                        <td>{eachItem?.description}</td>
+                        <td>
+                          <CiEdit
+                            onClick={() => {
+                              setSelectedMedicine(eachItem?.medicineName);
+                              setIncreaseInventory([]);
+                            }}
+                          />
+                        </td>
+                        <td>
+                          <MdDeleteOutline />
+                        </td>
+                      </tr>
+                    );
+                  })}
+            </tbody>
+          </table>
+        </div> */}
+        {/* {increaseInventory && (
+          <div className={classNames.increaseInventory}>
+            <div
+              className={classNames.overlayContainer}
+              onClick={() => setIncreaseInventory(false)}
+            ></div>
+            <div className={classNames.increaseContainer}>
+              <div className={classNames.title}>{selectedMedicine}</div>
+              <div className={classNames.inventoryFields}>
+                <CustomInput
+                  title="Quantity"
+                  placeHolder="Enter quantity..."
+                  name="quantity"
+                  type="number"
+                  stateValue={inventoryForm}
+                  setState={setInventoryForm}
+                />
+                <CustomInput
+                  title="Pic"
+                  placeHolder="Enter pic link..."
+                  name="pic"
+                  stateValue={inventoryForm}
+                  setState={setInventoryForm}
+                />
+                <CustomInput
+                  title="Description"
+                  placeHolder="Enter description..."
+                  name="description"
+                  stateValue={inventoryForm}
+                  setState={setInventoryForm}
+                />
+                <CustomInput
+                  title="MRP"
+                  placeHolder="Enter MRP..."
+                  name="mrp"
+                  type="number"
+                  stateValue={inventoryForm}
+                  setState={setInventoryForm}
+                />
+                <CustomInput
+                  title="Price"
+                  placeHolder="Enter price..."
+                  name="price"
+                  type="number"
+                  stateValue={inventoryForm}
+                  setState={setInventoryForm}
+                />
+                <CustomButton
+                  buttonText="Update Inventory"
+                  bg="#00638e"
+                  color="white"
+                  func={updateInventoryItem}
+                />
+              </div>
             </div>
-            {/* <CustomInput
-              placeHolder="Enter additional quantity..."
-              stateValue={increaseInventory}
-              setState={setIncreaseInventory}
-            /> */}
-            {/* <button
-              className={classNames.addinventory}
-              onClick={() => {
-                updateInventoryItem();
-              }}
-            >
-              Update Inventory Quantity
-            </button> */}
           </div>
-        </div>
-      ) : (
-        ""
-      )}
+        )} */}
+      </div>
+      <div className={classNames.cartContainer}>
+        <div className={classNames.title}>Cart</div>
+      </div>
     </div>
   );
 };

@@ -2,6 +2,7 @@
   height: 3.8rem;
   width: calc(100% - 4rem);
   margin: 0.6rem auto;
+  margin-bottom: 0;
   background: var(--primary-color);
   border-radius: 12px;
   padding: 0.7rem 1rem;
@@ -34,6 +35,10 @@
       width: 0%;
       transition: all linear 0.3s;
       color: white;
+
+      &::placeholder {
+        color: white;
+      }
     }
   }
 

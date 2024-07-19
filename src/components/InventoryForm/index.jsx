@@ -16,12 +16,11 @@ const InventoryForm = () => {
   function createInventoryForm() {
     inventoryForm.refMail = email;
     axios
-      .post(BACKENDURL + "/inventory/create", {
+      .post(BACKENDURL + "/inventory/create", inventoryForm, {
         headers: {
           Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
         },
-        data: inventoryForm,
       })
       .then((response) => {
         if (response?.data?.status) {

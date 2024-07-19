@@ -9,7 +9,7 @@ import { IoMdNotifications } from "react-icons/io";
 
 const DashboardNavbar = () => {
   const { theme } = useTheme();
-  const { userDetails } = useContext(GlobalContext);
+  const { userDetails, setSearchQuery } = useContext(GlobalContext);
   const [searchOpen, setSearchOpen] = useState(false);
 
   return (
@@ -27,7 +27,11 @@ const DashboardNavbar = () => {
             setSearchOpen((prev) => !prev);
           }}
         />
-        <input type="text" placeholder="Search..." />
+        <input
+          type="text"
+          placeholder="Search..."
+          onChange={(event) => setSearchQuery(event.target.value)}
+        />
       </div>
       <div className={classNames.settingsContainer}>
         <IoMdNotifications />
