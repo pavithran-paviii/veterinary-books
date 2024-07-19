@@ -19,3 +19,8 @@ export async function isLoginValid() {
     console.log(error?.message, "Is login valid error!");
   }
 }
+
+export function capitalizeFirstLetter(word) {
+  if (!word) return word; // Handle empty strings or null
+  return word.charAt(0).toUpperCase() + word.slice(1);
+}

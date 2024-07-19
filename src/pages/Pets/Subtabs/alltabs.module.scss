@@ -21,7 +21,7 @@
     }
 
     & > .selectedTab {
-      color: white;
+      color: var(--text-color);
       background: var(--primary-color);
     }
 
@@ -37,7 +37,7 @@
         padding: 0.6rem 1.5rem;
         cursor: pointer;
         border-radius: 25px;
-        color: white;
+        color: var(--text-color);
         border: none;
         outline: none;
         background: var(--primary-color);

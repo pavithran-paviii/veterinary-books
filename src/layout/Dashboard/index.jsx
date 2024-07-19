@@ -13,11 +13,12 @@ import { MaterialUISwitch } from "../../components/MUI";
 import { useTheme } from "../../context/ThemeContext";
 import { FaRegMoon } from "react-icons/fa";
 import { FiSun } from "react-icons/fi";
+import { capitalizeFirstLetter } from "../../assets/functions";
 
 const DashboardLayout = ({ child }) => {
   const navigate = useNavigate();
   const location = useLocation();
-  const { email } = useContext(GlobalContext);
+  const { email, userDetails } = useContext(GlobalContext);
   const { height } = useWindowSize();
   const { theme, toggleTheme } = useTheme();
 
@@ -36,11 +37,18 @@ const DashboardLayout = ({ child }) => {
     return <Navigate to="/signin" />;
   }
   return (
-    <section className={classNames.dashboardLayout}>
+    <section
+      className={classNames.dashboardLayout}
+      style={{ background: theme === "dark" ? "var(--primary-color)" : "" }}
+    >
       <div className={classNames.leftSidebar}>
         <div className={classNames.dashItems}>
-          <div className={classNames.logo}>
-            <img src={logoWhite} alt="logoWhite" />
+          <div className={classNames.welcomeTitle}>
+            <div>Welcome back,</div>
+            <div>
+              {userDetails?.username &&
+                capitalizeFirstLetter(userDetails?.username) + "!"}
+            </div>
           </div>
           <div className={classNames.dashItems}>
             {dashboardItems?.map((eachItem, index) => {

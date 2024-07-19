@@ -2,7 +2,6 @@
 
 .dashboardLayout {
   display: flex;
-  background: var(--primary-color);
 
   & > .leftSidebar {
     min-width: 200px;
@@ -12,6 +11,7 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    background: var(--primary-color);
 
     & > .dashItems {
       padding: 1rem;
@@ -19,6 +19,14 @@
       background: var(--secondary-color);
       border-radius: 0 0 12px 12px;
       // height: calc(100% - 14rem);
+
+      & > .welcomeTitle {
+        font-size: 1.5rem;
+        line-height: 1.35;
+        font-weight: 500;
+        margin-bottom: 1.5rem;
+        color: var(--highlight-text-color);
+      }
 
       & > .logo {
         display: flex;
@@ -39,11 +47,11 @@
         // height: calc(100% - 6.5rem);
 
         & > .selectedItem {
-          color: white;
+          color: var(--text-color);
 
           & > :nth-child(1) {
             background: white;
-            border: 1px solid white;
+            border: 1px solid var(--primary-color);
 
             & > svg {
               color: var(--primary-color);
@@ -62,7 +70,7 @@
           transition: all linear 0.3s;
 
           &:hover {
-            color: white;
+            color: var(--text-color);
             text-decoration: underline;
           }
         }
@@ -89,7 +97,7 @@
         transition: all linear 0.3s;
 
         &:hover {
-          color: white;
+          color: var(--text-color);
           text-decoration: underline;
         }
       }

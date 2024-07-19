@@ -1,8 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import classNames from "./settings.module.scss";
 
-import { jwtDecode } from "jwt-decode";
-
 //const
 import { settingsNavigations } from "../../assets/data/mapItems";
 import { GlobalContext } from "../../context/globalContext";
@@ -52,15 +50,7 @@ const Settings = () => {
 export default Settings;
 
 const ProfileSection = () => {
-  const { token } = useContext(GlobalContext);
-
-  const [userDetails, setUserDetails] = useState({});
-
-  //renderings
-
-  useEffect(() => {
-    setUserDetails(jwtDecode(token || localStorage.getItem("VBtoken")));
-  }, []);
+  const { userDetails, setUserDetails } = useContext(GlobalContext);
 
   return (
     <div className={classNames.profileSection}>

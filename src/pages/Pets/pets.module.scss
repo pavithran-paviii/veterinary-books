@@ -26,7 +26,7 @@
 
     & > .addClient {
       background: var(--primary-color);
-      color: white;
+      color: var(--text-color);
       padding: 1rem 2rem;
       border-radius: 35px;
       margin-left: auto;
@@ -40,6 +40,8 @@
   & > .tableContainer {
     height: calc(100% - 82px);
     overflow-y: scroll;
+    background: var(--secondary-color);
+    color: var(--gray-text-color);
 
     & > table {
       width: 100%;
@@ -57,18 +59,19 @@
       }
 
       tbody {
-        border: 1px solid #e5e5e5;
         overflow-y: scroll;
         height: calc(100% - 52px);
-        border: 1px solid green;
 
         tr {
+          border: 1px solid var(--border-color);
+          border-top: none;
+          
           & > :nth-child(5),
           :nth-child(6) {
             display: flex;
             justify-content: center;
             align-items: center;
-            color: var(--primary-color);
+            color: var(--gray-text-color);
             font-size: 1.2rem;
             cursor: pointer;
           }
