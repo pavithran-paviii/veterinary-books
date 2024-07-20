@@ -17,6 +17,7 @@ import Inventory from "./pages/Inventory";
 import InventoryForm from "./components/InventoryForm";
 import Settings from "./pages/Settings";
 import Dashboard from "./pages/Dashboard";
+import Billing from "./pages/Billing";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -32,7 +33,7 @@ const router = createBrowserRouter(
         path="dashboard"
         element={<DashboardLayout child={<Dashboard />} />}
       />
-      <Route path="inventory" element={<DashboardLayout child="" />} />
+      {/* <Route path="inventory" element={<DashboardLayout child="" />} /> */}
       <Route path="clients/">
         <Route
           path=""
@@ -54,6 +55,12 @@ const router = createBrowserRouter(
         <Route
           path="create"
           element={<DashboardLayout child={<PetRecordsForm />} />}
+        ></Route>
+      </Route>
+      <Route path="billing/">
+        <Route
+          path=""
+          element={<DashboardLayout child={<Billing />} />}
         ></Route>
       </Route>
       <Route path="inventory/">
