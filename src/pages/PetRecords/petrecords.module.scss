@@ -12,28 +12,17 @@
     justify-content: space-between;
     margin-bottom: 2rem;
 
-    & > .searchOption {
-      padding: 1rem 1.5rem;
-      border: 1px solid grey;
-      min-width: 450px;
-      border-radius: 15px;
-      outline: none;
-
-      &:focus {
-        border: 1px solid var(--primary-color);
-      }
-    }
-
     & > .addClient {
+      border: 1px solid var(--border-color);
       background: var(--primary-color);
-      color: var(--text-color);
+      color: white;
       padding: 1rem 2rem;
-      border-radius: 35px;
+      border-radius: 8px;
+      padding: 1rem 2rem;
       margin-left: auto;
       width: max-content;
       cursor: pointer;
       outline: none;
-      border: none;
     }
   }
 }

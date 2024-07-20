@@ -1,14 +1,23 @@
 .dashboard {
   padding: 2rem 2.2rem;
   & > .header {
-    & > .title {
-      font-size: 1.5rem;
-      font-weight: 500;
-    }
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 
-    & > .value {
-      font-size: 2rem;
-      font-weight: 500;
+    & > div {
+      & > .title {
+        font-size: 1.2rem;
+        font-weight: 500;
+        margin-bottom: 5px;
+        color: var(--highlight-text-color);
+      }
+
+      & > .value {
+        font-size: 2.5rem;
+        font-weight: 500;
+      }
     }
+    
   }
 }
