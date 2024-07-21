@@ -52,14 +52,14 @@ const Inventory = () => {
   }
 
   function updateInventoryItem() {
-    inventoryForm.medicineName = selectedMedicine;
+    inventoryForm.medicineName = selectedMedicine?.medicineName;
+    inventoryForm._id = selectedMedicine?._id;
     axios
-      .put(BACKENDURL + "/inventory/update", {
+      .put(BACKENDURL + "/inventory/update", inventoryForm, {
         headers: {
           Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
         },
-        data: inventoryForm,
       })
       .then((response) => {
         setIncreaseInventory(false);
@@ -186,104 +186,37 @@ const Inventory = () => {
     <div className={classNames.inventory}>
       <div className={classNames.productsContainer}>
         <div className={classNames.topBar}>
+          <div className={classNames.title}>Medicines</div>
           <button
             className={classNames.addinventory}
             onClick={() => {
-              navigate("/inventory/create");
+              if (increaseInventory) {
+                setSelectedMedicine("");
+                setIncreaseInventory(false);
+              } else {
+                navigate("/inventory/create");
+              }
             }}
           >
-            Add inventory
+            {increaseInventory ? "Back" : "Add inventory"}
           </button>
         </div>
-        <div className={classNames.allProducts}>
-          {Array.isArray(allInventory) &&
-            allInventory.length > 0 &&
-            allInventory
-              .filter((eachinventory) => {
-                let searchText = searchQuery?.toLowerCase();
-                return eachinventory?.medicineName
-                  ?.toLowerCase()
-                  ?.includes(searchText);
-              })
-              .map((eachProduct) => {
-                const cartItem = cart.find(
-                  (item) => item.item === eachProduct._id
-                );
-
-                return (
-                  <div className={classNames.eachProduct} key={eachProduct._id}>
-                    <div className={classNames.detailsContainer}>
-                      <div className={classNames.imageContainer}>
-                        {eachProduct.medicineName.charAt(0)}
-                      </div>
-                      <div className={classNames.details}>
-                        <div className={classNames.name}>
-                          <span>{eachProduct.medicineName}</span>{" "}
-                          <span>( {eachProduct.quantity} items available)</span>
-                        </div>
-                        <div className={classNames.price}>
-                          <span>₹ {eachProduct.retailPrice}</span>
-                          <span>₹ {eachProduct.mrp}</span>
-                        </div>
-                      </div>
-                    </div>
-                    <div className={classNames.controlBtns}>
-                      <FaCircleMinus
-                        onClick={() => decreaseQuantity(eachProduct._id)}
-                      />
-                      <input
-                        type="text"
-                        value={cartItem?.quantity || 0}
-                        readOnly
-                      />
-                      <FaCirclePlus
-                        className={
-                          eachProduct.quantity <= cartItem?.quantity &&
-                          classNames.notAllowedBtn
-                        }
-                        onClick={() => addToCart(eachProduct)}
-                      />
-                    </div>
-                  </div>
-                );
-              })}
-        </div>
-        <div className={classNames.totalBill}>
-          <div className={classNames.header}>
-            <div className={classNames.title}>
-              <div>Order Summary</div>
-              <div>(Total Amount)</div>
-            </div>
-          </div>
-          <div className={classNames.price}>
-            ₹{" "}
-            {calculateTotalCost(cart)
-              ? calculateTotalCost(cart)?.toFixed(2)
-              : "0.00"}
-          </div>
-        </div>
-
-        {/* {increaseInventory && (
+        {increaseInventory ? (
           <div className={classNames.increaseInventory}>
             <div
               className={classNames.overlayContainer}
               onClick={() => setIncreaseInventory(false)}
             ></div>
             <div className={classNames.increaseContainer}>
-              <div className={classNames.title}>{selectedMedicine}</div>
+              <div className={classNames.title}>
+                {selectedMedicine?.medicineName}
+              </div>
               <div className={classNames.inventoryFields}>
                 <CustomInput
                   title="Quantity"
                   placeHolder="Enter quantity..."
                   name="quantity"
                   type="number"
-                  stateValue={inventoryForm}
-                  setState={setInventoryForm}
-                />
-                <CustomInput
-                  title="Pic"
-                  placeHolder="Enter pic link..."
-                  name="pic"
                   stateValue={inventoryForm}
                   setState={setInventoryForm}
                 />
@@ -319,72 +252,58 @@ const Inventory = () => {
               </div>
             </div>
           </div>
-        )} */}
-      </div>
-      <div className={classNames.cartContainer}>
-        <div className={classNames.title}>
-          Cart
-          <div className={classNames.paymentType}>
-            <CustomSelectOne
-              stateValue={finalCart}
-              setState={setFinalCart}
-              name="billingType"
-              allOptions={[{ name: "Online" }, { name: "Cash" }]}
-            />
-          </div>
-        </div>
+        ) : (
+          <div className={classNames.allProducts}>
+            {Array.isArray(allInventory) &&
+              allInventory.length > 0 &&
+              allInventory
+                .filter((eachinventory) => {
+                  let searchText = searchQuery?.toLowerCase();
+                  return eachinventory?.medicineName
+                    ?.toLowerCase()
+                    ?.includes(searchText);
+                })
+                .map((eachProduct) => {
+                  const cartItem = cart.find(
+                    (item) => item.item === eachProduct._id
+                  );
 
-        <div className={classNames.cartItems}>
-          {Array.isArray(cart) &&
-            cart?.length > 0 &&
-            cart?.map((eachCartItem) => {
-              return (
-                <div className={classNames.eachProduct} key={eachCartItem.item}>
-                  <div className={classNames.detailsContainer}>
-                    <div className={classNames.imageContainer}>
-                      {eachCartItem.name.charAt(0)}
-                    </div>
-                    <div className={classNames.details}>
-                      <div className={classNames.name}>{eachCartItem.name}</div>
-                      <div className={classNames.price}>
-                        <span>₹ {eachCartItem.price}</span>
-                        <span>₹ {eachCartItem.mrp}</span>
-                      </div>
-                    </div>
-                  </div>
-                  <div className={classNames.cartBtns}>
-                    <div className={classNames.eachTotal}>
-                      <div>{eachCartItem?.quantity} Quantity</div>
-                      <div>
-                        ₹{" "}
-                        {(
-                          eachCartItem?.quantity * eachCartItem?.price
-                        )?.toFixed(2)}
-                      </div>
-                    </div>
+                  return (
                     <div
-                      className={classNames.deleteBtn}
-                      onClick={() => removeFromCart(eachCartItem?.item)}
+                      className={classNames.eachProduct}
+                      key={eachProduct._id}
                     >
-                      <MdDelete />
+                      <div className={classNames.detailsContainer}>
+                        <div className={classNames.imageContainer}>
+                          {eachProduct.medicineName.charAt(0)}
+                        </div>
+                        <div className={classNames.details}>
+                          <div className={classNames.name}>
+                            <span>{eachProduct.medicineName}</span>{" "}
+                            <span>
+                              ( {eachProduct.quantity} items available)
+                            </span>
+                          </div>
+                          <div className={classNames.price}>
+                            <span>₹ {eachProduct.retailPrice}</span>
+                            <span>₹ {eachProduct.mrp}</span>
+                          </div>
+                        </div>
+                      </div>
+                      <div
+                        className={classNames.editBtn}
+                        onClick={() => {
+                          setSelectedMedicine(eachProduct);
+                          setIncreaseInventory([]);
+                        }}
+                      >
+                        Edit
+                      </div>
                     </div>
-                  </div>
-                </div>
-              );
-            })}
-        </div>
-        <div
-          className={`${classNames.paymentBtn} ${
-            !(
-              Array.isArray(cart) &&
-              cart?.length > 0 &&
-              finalCart?.billingType
-            ) && classNames.notAllowedBtn
-          }`}
-          onClick={submitBill}
-        >
-          Confirm Payment
-        </div>
+                  );
+                })}
+          </div>
+        )}
       </div>
     </div>
   );
