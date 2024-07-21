@@ -96,31 +96,25 @@ const DashboardLayout = ({ child }) => {
             </span>
             Logout
           </div>
-          {height > 700 && height > 500 && (
-            // <MaterialUISwitch
-            //   sx={{ width: 60, margin: "0 auto" }}
-            //   checked={theme === "dark" ? true : false}
-            //   onChange={handleModeChange}
-            // />
-            <div
-              className={classNames.UISwitch}
-              style={{ marginBottom: height > 900 ? "2rem" : "0" }}
-              onClick={handleModeChange}
-            >
-              {theme === "dark" ? (
-                <>
-                  <span>Dark Theme</span>
-                  <FaRegMoon />
-                </>
-              ) : (
-                <>
-                  <span>Light Theme</span>
-                  <FiSun />
-                </>
-              )}
-            </div>
-          )}
-          {height > 900 && (
+
+          <div
+            className={classNames.UISwitch}
+            style={{ marginBottom: height > 900 ? "2rem" : "0" }}
+            onClick={handleModeChange}
+          >
+            {theme === "dark" ? (
+              <>
+                <span>Dark Theme</span>
+                <FaRegMoon />
+              </>
+            ) : (
+              <>
+                <span>Light Theme</span>
+                <FiSun />
+              </>
+            )}
+          </div>
+          {/* {height > 900 && (
             <div className={classNames.needHelp}>
               <div className={classNames.title}>Need help?</div>
               <div className={classNames.desc}>
@@ -128,7 +122,7 @@ const DashboardLayout = ({ child }) => {
               </div>
               <div className={classNames.submitBtn}>Write us here</div>
             </div>
-          )}
+          )} */}
         </div>
       </div>
       <div className={classNames.rightLayout}>
