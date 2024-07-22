@@ -18,6 +18,7 @@ import InventoryForm from "./components/InventoryForm";
 import Settings from "./pages/Settings";
 import Dashboard from "./pages/Dashboard";
 import Billing from "./pages/Billing";
+import Bills from "./pages/Bills";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -72,6 +73,9 @@ const router = createBrowserRouter(
           path="create"
           element={<DashboardLayout child={<InventoryForm />} />}
         ></Route>
+      </Route>
+      <Route path="bills/">
+        <Route path="" element={<DashboardLayout child={<Bills />} />}></Route>
       </Route>
 
       <Route path="*" element={<Error />} />
