@@ -51,16 +51,16 @@ const Clients = () => {
       });
   }
 
-  function updateInventoryItem() {
-    nextRemainderForm.phoneNumber = nextRemainder;
-    nextRemainderForm.refMail = email;
+  function updateClientRemainder() {
+    console.log(nextRemainder, "nextRemainder");
+    nextRemainderForm.phoneNumber = nextRemainder?.phoneNumber;
+    nextRemainderForm.refID = nextRemainder?._id;
     axios
-      .put(BACKENDURL + "/client/update", {
+      .put(BACKENDURL + "/client/update", nextRemainderForm, {
         headers: {
           Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
         },
-        data: nextRemainderForm,
       })
       .then((response) => {
         setNextRemainder(false);
@@ -189,7 +189,7 @@ const Clients = () => {
                             <CiEdit
                               onClick={() => {
                                 setNextRemainderForm({});
-                                setNextRemainder(eachItem?.phoneNumber);
+                                setNextRemainder(eachItem);
                               }}
                             />
                           )}
@@ -200,7 +200,7 @@ const Clients = () => {
                           />
                         </td>
                       </tr>
-                      {nextRemainder === eachItem?.phoneNumber && (
+                      {nextRemainder?.phoneNumber === eachItem?.phoneNumber && (
                         <div className={classNames.nextRemainder}>
                           <div className={classNames.increaseContainer}>
                             <div className={classNames.title}>
@@ -218,7 +218,7 @@ const Clients = () => {
                                 buttonText="Update Inventory"
                                 bg="#00638e"
                                 color="white"
-                                func={updateInventoryItem}
+                                func={updateClientRemainder}
                               />
 
                               <div
