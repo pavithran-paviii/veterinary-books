@@ -63,6 +63,7 @@
   gap: 1rem;
   max-height: 600px;
   width: 500px;
+  overflow-y: scroll;
 
   & > .title {
     font-size: 2rem;
