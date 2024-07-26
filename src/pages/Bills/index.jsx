@@ -1,5 +1,8 @@
 import React, { useContext, useEffect, useState } from "react";
 import classNames from "./bills.module.scss";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import "./datepicker.scss";
 
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -12,10 +15,12 @@ import axios from "axios";
 import { BACKENDURL } from "../../assets/data/constant";
 import { GlobalContext } from "../../context/globalContext";
 import moment from "moment";
+import { filterByDateRange } from "../../assets/functions";
 
 const Bills = () => {
   const { token } = useContext(GlobalContext);
   const [allBills, setAllBills] = useState([]);
+  const [allBillsFiltered, setAllBillsFiltered] = useState([]);
 
   //functions
   async function getAllBills() {
@@ -29,6 +34,7 @@ const Bills = () => {
 
       if (response?.data?.status) {
         setAllBills(response?.data?.data);
+        setAllBillsFiltered(response?.data?.data);
       }
 
       console.log(response, "get all bills response");
@@ -36,6 +42,11 @@ const Bills = () => {
       console.log(error?.message, "Get all bills error");
     }
   }
+
+  const handleDateChange = (startDate, endDate) => {
+    const filtered = filterByDateRange(allBills, startDate, endDate);
+    setAllBillsFiltered(filtered);
+  };
 
   //renderings
 
@@ -45,6 +56,10 @@ const Bills = () => {
 
   return (
     <div className={classNames.bills}>
+      <div className={classNames.header}>
+        <div className={classNames.title}>Bills</div>
+        <DatePickerComponent onDateChange={handleDateChange} />
+      </div>
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
@@ -57,9 +72,9 @@ const Bills = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {Array.isArray(allBills) &&
-              allBills?.length > 0 &&
-              allBills?.map((row) => (
+            {Array.isArray(allBillsFiltered) &&
+              allBillsFiltered?.length > 0 &&
+              allBillsFiltered?.map((row) => (
                 <TableRow
                   key={row._id}
                   sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
@@ -85,3 +100,50 @@ const Bills = () => {
 };
 
 export default Bills;
+
+const DatePickerComponent = ({ onDateChange }) => {
+  const [startDate, setStartDate] = useState(null);
+  const [endDate, setEndDate] = useState(null);
+
+  const handleStartDateChange = (date) => {
+    setStartDate(date);
+    onDateChange(date, endDate);
+  };
+
+  const handleEndDateChange = (date) => {
+    setEndDate(date);
+    onDateChange(startDate, date);
+  };
+
+  return (
+    <div className={classNames.dateContainer}>
+      <DatePicker
+        selected={startDate}
+        onChange={handleStartDateChange}
+        selectsStart
+        startDate={startDate}
+        endDate={endDate}
+        placeholderText="Select start date"
+      />
+      <DatePicker
+        selected={endDate}
+        onChange={handleEndDateChange}
+        selectsEnd
+        startDate={startDate}
+        endDate={endDate}
+        minDate={startDate}
+        placeholderText="Select end date"
+      />
+      <div
+        className={classNames.resetBtn}
+        onClick={() => {
+          setStartDate(null);
+          setEndDate(null);
+          onDateChange();
+        }}
+      >
+        Reset
+      </div>
+    </div>
+  );
+};

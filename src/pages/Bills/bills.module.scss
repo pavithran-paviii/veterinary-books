@@ -4,6 +4,49 @@
   height: 100%;
   overflow: hidden;
   display: flex;
+  flex-direction: column;
 
-  
+  & > .header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+
+    & > .title {
+      font-size: 2rem;
+      font-weight: 510;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    & > .dateContainer {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-left: auto;
+
+      & > div,
+      input {
+        cursor: pointer;
+      }
+
+      & > .resetBtn {
+        padding: 0.55rem 1.5rem;
+        border-radius: 7px;
+        color: white;
+        background: var(--primary-color);
+      }
+    }
+  }
+
+  thead {
+    background: var(--primary-color);
+
+    tr {
+      th {
+        color: white !important;
+      }
+    }
+  }
 }
