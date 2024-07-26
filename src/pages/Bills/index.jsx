@@ -11,6 +11,7 @@ import Paper from "@mui/material/Paper";
 import axios from "axios";
 import { BACKENDURL } from "../../assets/data/constant";
 import { GlobalContext } from "../../context/globalContext";
+import moment from "moment";
 
 const Bills = () => {
   const { token } = useContext(GlobalContext);
@@ -48,8 +49,8 @@ const Bills = () => {
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
             <TableRow>
-              <TableCell>ID</TableCell>
-              <TableCell align="right">Name</TableCell>
+              <TableCell>Name</TableCell>
+              <TableCell align="right">Phone Number</TableCell>
               <TableCell align="right">Billing Type</TableCell>
               <TableCell align="right">Amount</TableCell>
               <TableCell align="right">Created At</TableCell>
@@ -60,16 +61,20 @@ const Bills = () => {
               allBills?.length > 0 &&
               allBills?.map((row) => (
                 <TableRow
-                  key={row.name}
+                  key={row._id}
                   sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                 >
                   <TableCell component="th" scope="row">
-                    {row?._id}
+                    {row?.name ? row?.name : "-"}
                   </TableCell>
-                  <TableCell align="right">-</TableCell>
+                  <TableCell align="right">
+                    {row?.phoneNumber ? row?.phoneNumber : "-"}
+                  </TableCell>
                   <TableCell align="right">{row.billingType}</TableCell>
                   <TableCell align="right">{row.totalAmount}</TableCell>
-                  <TableCell align="right">{row.createdAt}</TableCell>
+                  <TableCell align="right">
+                    {row.createdAt ? moment(row.createdAt).format("LLL") : ""}
+                  </TableCell>
                 </TableRow>
               ))}
           </TableBody>

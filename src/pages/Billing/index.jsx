@@ -255,64 +255,6 @@ const Billing = () => {
               : "0.00"}
           </div>
         </div>
-
-        {/* {increaseInventory && (
-          <div className={classNames.increaseInventory}>
-            <div
-              className={classNames.overlayContainer}
-              onClick={() => setIncreaseInventory(false)}
-            ></div>
-            <div className={classNames.increaseContainer}>
-              <div className={classNames.title}>{selectedMedicine}</div>
-              <div className={classNames.inventoryFields}>
-                <CustomInput
-                  title="Quantity"
-                  placeHolder="Enter quantity..."
-                  name="quantity"
-                  type="number"
-                  stateValue={inventoryForm}
-                  setState={setInventoryForm}
-                />
-                <CustomInput
-                  title="Pic"
-                  placeHolder="Enter pic link..."
-                  name="pic"
-                  stateValue={inventoryForm}
-                  setState={setInventoryForm}
-                />
-                <CustomInput
-                  title="Description"
-                  placeHolder="Enter description..."
-                  name="description"
-                  stateValue={inventoryForm}
-                  setState={setInventoryForm}
-                />
-                <CustomInput
-                  title="MRP"
-                  placeHolder="Enter MRP..."
-                  name="mrp"
-                  type="number"
-                  stateValue={inventoryForm}
-                  setState={setInventoryForm}
-                />
-                <CustomInput
-                  title="Price"
-                  placeHolder="Enter price..."
-                  name="price"
-                  type="number"
-                  stateValue={inventoryForm}
-                  setState={setInventoryForm}
-                />
-                <CustomButton
-                  buttonText="Update Inventory"
-                  bg="#00638e"
-                  color="white"
-                  func={updateInventoryItem}
-                />
-              </div>
-            </div>
-          </div>
-        )} */}
       </div>
       <div className={classNames.cartContainer}>
         <div className={classNames.title}>
@@ -326,7 +268,20 @@ const Billing = () => {
             />
           </div>
         </div>
-
+        <div className={classNames.inputDiv}>
+          <CustomInput
+            placeHolder="Enter name..."
+            name="name"
+            stateValue={finalCart}
+            setState={setFinalCart}
+          />
+          <CustomInput
+            placeHolder="Enter phone number..."
+            name="phoneNumber"
+            stateValue={finalCart}
+            setState={setFinalCart}
+          />
+        </div>
         <div className={classNames.cartItems}>
           {Array.isArray(cart) &&
             cart?.length > 0 &&
