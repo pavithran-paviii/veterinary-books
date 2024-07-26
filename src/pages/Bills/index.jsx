@@ -18,7 +18,7 @@ import moment from "moment";
 import { filterByDateRange } from "../../assets/functions";
 
 const Bills = () => {
-  const { token } = useContext(GlobalContext);
+  const { token, searchQuery } = useContext(GlobalContext);
   const [allBills, setAllBills] = useState([]);
   const [allBillsFiltered, setAllBillsFiltered] = useState([]);
 
@@ -74,24 +74,33 @@ const Bills = () => {
           <TableBody>
             {Array.isArray(allBillsFiltered) &&
               allBillsFiltered?.length > 0 &&
-              allBillsFiltered?.map((row) => (
-                <TableRow
-                  key={row._id}
-                  sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                >
-                  <TableCell component="th" scope="row">
-                    {row?.name ? row?.name : "-"}
-                  </TableCell>
-                  <TableCell align="right">
-                    {row?.phoneNumber ? row?.phoneNumber : "-"}
-                  </TableCell>
-                  <TableCell align="right">{row.billingType}</TableCell>
-                  <TableCell align="right">{row.totalAmount}</TableCell>
-                  <TableCell align="right">
-                    {row.createdAt ? moment(row.createdAt).format("LLL") : ""}
-                  </TableCell>
-                </TableRow>
-              ))}
+              allBillsFiltered
+                ?.filter((eachBill) => {
+                  let searchText = searchQuery?.toLowerCase();
+                  if (eachBill?.name) {
+                    return eachBill?.name?.toLowerCase()?.includes(searchText);
+                  } else {
+                    return eachBill;
+                  }
+                })
+                ?.map((row) => (
+                  <TableRow
+                    key={row._id}
+                    sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                  >
+                    <TableCell component="th" scope="row">
+                      {row?.name ? row?.name : "-"}
+                    </TableCell>
+                    <TableCell align="right">
+                      {row?.phoneNumber ? row?.phoneNumber : "-"}
+                    </TableCell>
+                    <TableCell align="right">{row.billingType}</TableCell>
+                    <TableCell align="right">{row.totalAmount}</TableCell>
+                    <TableCell align="right">
+                      {row.createdAt ? moment(row.createdAt).format("LLL") : ""}
+                    </TableCell>
+                  </TableRow>
+                ))}
           </TableBody>
         </Table>
       </TableContainer>
