@@ -42,6 +42,8 @@
 
   thead {
     background: var(--primary-color);
+    position: sticky;
+    top: 0;
 
     tr {
       th {
