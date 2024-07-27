@@ -98,6 +98,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
     // inset: 0;
 
     & > .increaseContainer {
@@ -113,6 +115,7 @@
       // overflow-y: scroll;
       padding-left: 1rem;
       margin-top: 1.5rem;
+      border-radius: 6px;
 
       & > .title {
         font-size: 1rem;

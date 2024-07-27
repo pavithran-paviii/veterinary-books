@@ -19,6 +19,7 @@ const DynamicTable = ({
   searchQuery,
   outlineFunc,
   mainFunc,
+  filterItem,
 }) => {
   return (
     <TableContainer component={Paper}>
@@ -35,8 +36,10 @@ const DynamicTable = ({
             ? mapArray
                 ?.filter((eachBill) => {
                   let searchText = searchQuery?.toLowerCase();
-                  if (eachBill?.name) {
-                    return eachBill?.name?.toLowerCase()?.includes(searchText);
+                  if (eachBill[filterItem]) {
+                    return eachBill[filterItem]
+                      ?.toLowerCase()
+                      ?.includes(searchText);
                   } else {
                     return eachBill;
                   }

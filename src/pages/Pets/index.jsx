@@ -93,6 +93,7 @@ const Pets = () => {
               setLocalStep(obj?._id);
               setSelectedPet(obj);
             }}
+            filterItem={"name"}
           />
         </>
       )}
