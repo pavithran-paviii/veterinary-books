@@ -16,6 +16,8 @@ import { BACKENDURL } from "../../assets/data/constant";
 import { GlobalContext } from "../../context/globalContext";
 import moment from "moment";
 import { filterByDateRange } from "../../assets/functions";
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 
 const Bills = () => {
   const { token, searchQuery } = useContext(GlobalContext);
@@ -72,35 +74,62 @@ const Bills = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {Array.isArray(allBillsFiltered) &&
-              allBillsFiltered?.length > 0 &&
-              allBillsFiltered
-                ?.filter((eachBill) => {
-                  let searchText = searchQuery?.toLowerCase();
-                  if (eachBill?.name) {
-                    return eachBill?.name?.toLowerCase()?.includes(searchText);
-                  } else {
-                    return eachBill;
-                  }
-                })
-                ?.map((row) => (
-                  <TableRow
-                    key={row._id}
-                    sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                  >
-                    <TableCell component="th" scope="row">
-                      {row?.name ? row?.name : "-"}
-                    </TableCell>
-                    <TableCell align="right">
-                      {row?.phoneNumber ? row?.phoneNumber : "-"}
-                    </TableCell>
-                    <TableCell align="right">{row.billingType}</TableCell>
-                    <TableCell align="right">{row.totalAmount}</TableCell>
-                    <TableCell align="right">
-                      {row.createdAt ? moment(row.createdAt).format("LLL") : ""}
-                    </TableCell>
-                  </TableRow>
-                ))}
+            {Array.isArray(allBillsFiltered) && allBillsFiltered?.length > 0
+              ? allBillsFiltered
+                  ?.filter((eachBill) => {
+                    let searchText = searchQuery?.toLowerCase();
+                    if (eachBill?.name) {
+                      return eachBill?.name
+                        ?.toLowerCase()
+                        ?.includes(searchText);
+                    } else {
+                      return eachBill;
+                    }
+                  })
+                  ?.map((row) => (
+                    <TableRow
+                      key={row._id}
+                      sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                    >
+                      <TableCell component="th" scope="row">
+                        {row?.name ? row?.name : "-"}
+                      </TableCell>
+                      <TableCell align="right">
+                        {row?.phoneNumber ? row?.phoneNumber : "-"}
+                      </TableCell>
+                      <TableCell align="right">{row.billingType}</TableCell>
+                      <TableCell align="right">{row.totalAmount}</TableCell>
+                      <TableCell align="right">
+                        {row.createdAt
+                          ? moment(row.createdAt).format("LLL")
+                          : ""}
+                      </TableCell>
+                    </TableRow>
+                  ))
+              : Array.from({ length: 4 })?.map((eachLoading, index) => {
+                  return (
+                    <TableRow
+                      key={"billsLoading" + index}
+                      sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                    >
+                      <TableCell component="th" scope="row">
+                        <Skeleton height={15} />
+                      </TableCell>
+                      <TableCell align="right">
+                        <Skeleton height={15} />
+                      </TableCell>
+                      <TableCell align="right">
+                        <Skeleton height={15} />
+                      </TableCell>
+                      <TableCell align="right">
+                        <Skeleton height={15} />
+                      </TableCell>
+                      <TableCell align="right">
+                        <Skeleton height={15} />
+                      </TableCell>
+                    </TableRow>
+                  );
+                })}
           </TableBody>
         </Table>
       </TableContainer>
