@@ -8,6 +8,7 @@ import { GlobalContext } from "../../context/globalContext";
 import { MdDeleteOutline } from "react-icons/md";
 import { Toastify } from "../../components/Custom";
 import AllTabs from "./Subtabs/AllTabs";
+import DynamicTable from "../../components/DynamicTable";
 
 const Pets = () => {
   const navigate = useNavigate();
@@ -68,6 +69,8 @@ const Pets = () => {
           setLocalStep={setLocalStep}
           setLocalRefresh={setLocalRefresh}
         />
+      ) : localStep ? (
+        <AllTabs selectedPet={selectedPet} setLocalStep={setLocalStep} />
       ) : (
         <>
           <div className={classNames.topBar}>
@@ -80,66 +83,17 @@ const Pets = () => {
               Add Pets
             </button>
           </div>
-          <div
-            className={classNames.tableContainer}
-            style={{ display: allPets?.length > 0 ? "" : "none" }}
-          >
-            <table>
-              <thead>
-                <tr>
-                  <th>Name</th>
-                  <th>Age</th>
-                  <th>Gender</th>
-                  <th>Type</th>
-                  <th>Weight</th>
-                  <th></th>
-                </tr>
-              </thead>
-              <tbody>
-                {allPets?.length > 0 &&
-                  allPets
-                    ?.filter((eachClient) => {
-                      let searchText = searchQuery?.toLowerCase();
-                      return (
-                        eachClient?.email?.includes(searchText) ||
-                        eachClient?.name?.includes(searchText)
-                      );
-                    })
-                    .map((eachItem, index) => {
-                      return (
-                        <>
-                          <div>
-                            <tr
-                              key={eachItem?.name + index}
-                              onClick={() => {
-                                setLocalStep(eachItem?._id);
-                                setSelectedPet(eachItem);
-                              }}
-                            >
-                              <td>{eachItem?.name}</td>
-                              <td>{eachItem?.age}</td>
-                              <td>{eachItem?.sex}</td>
-                              <td>{eachItem?.type}</td>
-                              <td>{eachItem?.weight}</td>
-                              <td>
-                                <MdDeleteOutline
-                                  onClick={() => deletePet(eachItem?._id)}
-                                />
-                              </td>
-                            </tr>
-                            {localStep === eachItem?._id && (
-                              <AllTabs
-                                selectedPet={eachItem}
-                                setLocalStep={setLocalStep}
-                              />
-                            )}
-                          </div>
-                        </>
-                      );
-                    })}
-              </tbody>
-            </table>
-          </div>
+          <DynamicTable
+            tableHead={["Name", "Age", "Gender", "Type", "Weight", ""]}
+            mapArray={allPets}
+            tableBody={["name", "age", "sex", "type", "weight", "outline"]}
+            searchQuery={searchQuery}
+            outlineFunc={deletePet}
+            mainFunc={(obj) => {
+              setLocalStep(obj?._id);
+              setSelectedPet(obj);
+            }}
+          />
         </>
       )}
     </div>

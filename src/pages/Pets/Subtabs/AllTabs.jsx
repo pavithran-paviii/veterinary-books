@@ -8,7 +8,7 @@ const AllTabs = ({ selectedPet, setLocalStep }) => {
   const allSubTabs = ["Profile", "Medical records", "Vaccinations"];
 
   // states
-  const [selectedTab, setSelectedTab] = useState("Medical records");
+  const [selectedTab, setSelectedTab] = useState("Profile");
 
   return (
     <div className={classNames.allTabs}>

@@ -4,8 +4,10 @@
   padding: 1.5rem 0.25rem;
   border: 1px solid var(--border-color);
   border-radius: 6px;
-  margin-bottom: 1rem;
+  // margin-bottom: 1rem;
   padding-top: 1rem;
+  overflow-y: scroll;
+  height: 100%;
 
   & > .subTabs {
     display: flex;
@@ -21,7 +23,7 @@
     }
 
     & > .selectedTab {
-      color: var(--text-color);
+      color: white;
       background: var(--primary-color);
     }
 
@@ -41,6 +43,7 @@
         border: none;
         outline: none;
         background: var(--primary-color);
+        color: white;
       }
 
       & > :nth-child(2) {
