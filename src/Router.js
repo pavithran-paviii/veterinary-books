@@ -19,6 +19,7 @@ import Settings from "./pages/Settings";
 import Dashboard from "./pages/Dashboard";
 import Billing from "./pages/Billing";
 import Bills from "./pages/Bills";
+import Case from "./pages/Case";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -76,6 +77,9 @@ const router = createBrowserRouter(
       </Route>
       <Route path="bills/">
         <Route path="" element={<DashboardLayout child={<Bills />} />}></Route>
+      </Route>
+      <Route path="case/">
+        <Route path="" element={<DashboardLayout child={<Case />} />}></Route>
       </Route>
 
       <Route path="*" element={<Error />} />
