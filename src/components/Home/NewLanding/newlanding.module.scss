@@ -160,6 +160,9 @@
       background: #00598e;
       border-radius: 2rem;
       position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
 
       & > .buttonContainer {
         position: absolute;
@@ -184,6 +187,12 @@
           font-size: 0.9rem;
           display: block;
         }
+      }
+
+      & > img {
+        height: 65%;
+        object-fit: contain;
+        max-width: 90%;
       }
     }
   }

@@ -8,6 +8,7 @@ import { FaArrowRight } from "react-icons/fa6";
 import { TiTickOutline } from "react-icons/ti";
 import { LiaDotCircleSolid } from "react-icons/lia";
 import { Link } from "react-router-dom";
+import landingCard from "../../../assets/images/landingcard.svg";
 
 const NewLanding = ({ newLandingVisible, setNewLandingVisible }) => {
   const sectionRef = useRef(null);
@@ -70,6 +71,7 @@ const NewLanding = ({ newLandingVisible, setNewLandingVisible }) => {
               SIGN IN
             </Link>
           </div>
+          <img src={landingCard} alt="landingCard" />
         </div>
       </div>
     </section>
